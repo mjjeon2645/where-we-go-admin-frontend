@@ -1,7 +1,25 @@
+import { useEffect } from 'react';
+import styled from 'styled-components';
+import PlacesList from '../components/PlacesList';
+import usePlaceStore from '../hooks/usePlaceStore';
+
+const Container = styled.div`
+//
+`;
+
 export default function PlacesPage() {
+  const placeStore = usePlaceStore();
+
+  const { places } = placeStore;
+
+  useEffect(() => {
+    placeStore.fetchPlaces();
+  }, []);
+
   return (
-    <div>
+    <Container>
       places page
-    </div>
+      <PlacesList places={places} />
+    </Container>
   );
 }
