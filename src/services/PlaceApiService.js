@@ -20,9 +20,10 @@ export default class PlaceApiService {
     return data;
   }
 
-  async addNewPlace(data, address) {
+  async addNewPlace(data, address, position) {
     const url = `${baseUrl}/admin-places/new`;
-    const newData = { ...data, ...address };
+    const newData = { ...data, ...address, ...position };
+
     const response = await axios.post(url, newData);
 
     return response.data;

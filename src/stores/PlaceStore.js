@@ -13,6 +13,8 @@ export default class PlaceStore extends Store {
     this.jibunAddress = '';
     this.sidoFromPostCode = '';
     this.sigunguFromPostCode = '';
+    this.latitude = 0;
+    this.longitude = 0;
   }
 
   async fetchPlaces() {
@@ -47,16 +49,32 @@ export default class PlaceStore extends Store {
     this.publish();
   }
 
+  setLatitude(latitude) {
+    this.latitude = latitude;
+    this.publish();
+  }
+
+  setLongitude(longitude) {
+    this.longitude = longitude;
+    this.publish();
+  }
+
   async requestForAddingNewPlace(data) {
     const { detailAddress } = data;
     const fullAddress = fullAddressFormater(this.roadAddress, this.jibunAddress, detailAddress);
+
+    const position = {
+      longitude: this.longitude,
+      latitude: this.latitude,
+    };
+
     const address = {
       fullAddress,
       sido: this.sidoFromPostCode,
       sigungu: this.sigunguFromPostCode,
     };
 
-    const response = await placeApiService.addNewPlace(data, address);
+    const response = await placeApiService.addNewPlace(data, address, position);
   }
 }
 
