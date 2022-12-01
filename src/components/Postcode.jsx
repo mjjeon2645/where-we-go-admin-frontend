@@ -17,7 +17,15 @@ export default function Postcode({
     let extraAddress = '';
 
     changeSido(data.sido);
-    changeSigungu(data.sigungu);
+    const { sigungu } = data;
+
+    if (sigungu.indexOf(' ') === -1) {
+      changeSigungu(sigungu);
+    }
+
+    if (sigungu.indexOf(' ') !== -1) {
+      changeSigungu(sigungu.split(' ')[0]);
+    }
 
     if (data.addressType === 'R') {
       if (data.bname !== '') {

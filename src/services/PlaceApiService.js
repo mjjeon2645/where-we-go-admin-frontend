@@ -28,6 +28,11 @@ export default class PlaceApiService {
 
     return response.data;
   }
+
+  async deletePlace(id) {
+    const url = `${baseUrl}/admin-places/${id}`;
+    await axios.delete(url);
+  }
 }
 
 export const placeApiService = new PlaceApiService();

@@ -76,6 +76,10 @@ export default class PlaceStore extends Store {
 
     const response = await placeApiService.addNewPlace(data, address, position);
   }
+
+  async deletePlace(id) {
+    const response = await placeApiService.deletePlace(id);
+  }
 }
 
 export const placeStore = new PlaceStore();
