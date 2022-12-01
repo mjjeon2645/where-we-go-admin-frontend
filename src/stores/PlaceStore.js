@@ -1,4 +1,5 @@
 import { placeApiService } from '../services/PlaceApiService';
+import { fullAddressFormater } from '../utils/addressFormatter';
 import Store from './Store';
 
 export default class PlaceStore extends Store {
@@ -7,6 +8,11 @@ export default class PlaceStore extends Store {
 
     this.places = [];
     this.selectedPlace = {};
+
+    this.roadAddress = '';
+    this.jibunAddress = '';
+    this.sidoFromPostCode = '';
+    this.sigunguFromPostCode = '';
   }
 
   async fetchPlaces() {
@@ -18,8 +24,39 @@ export default class PlaceStore extends Store {
   async fetchSelectedPlace(id) {
     const place = await placeApiService.fetchSelectedPlace(id);
     this.selectedPlace = place;
-    console.log(place);
     this.publish();
+  }
+
+  setRoadAddress(address) {
+    this.roadAddress = address;
+    this.publish();
+  }
+
+  setJibunAddress(address) {
+    this.jibunAddress = address;
+    this.publish();
+  }
+
+  setSido(sido) {
+    this.sidoFromPostCode = sido;
+    this.publish();
+  }
+
+  setSigungu(sigungu) {
+    this.sigunguFromPostCode = sigungu;
+    this.publish();
+  }
+
+  async requestForAddingNewPlace(data) {
+    const { detailAddress } = data;
+    const fullAddress = fullAddressFormater(this.roadAddress, this.jibunAddress, detailAddress);
+    const address = {
+      fullAddress,
+      sido: this.sidoFromPostCode,
+      sigungu: this.sigunguFromPostCode,
+    };
+
+    const response = await placeApiService.addNewPlace(data, address);
   }
 }
 
