@@ -4,7 +4,7 @@ import Postcode from './Postcode';
 
 export default function NewPlaceForm({
   register, handleSubmit, errors, onSubmit,
-  changeRoadAddress, changeJibunAddress, changeSido, changeSigungu,
+  changeRoadAddress, changeJibunAddress, changeSido, changeSigungu, changeLatitude, changeLongitude,
 }) {
   return (
     <div>
@@ -30,6 +30,8 @@ export default function NewPlaceForm({
             changeJibunAddress={changeJibunAddress}
             changeSido={changeSido}
             changeSigungu={changeSigungu}
+            changeLatitude={changeLatitude}
+            changeLongitude={changeLongitude}
           />
           <label htmlFor="detail-address">상세주소</label>
           <input id="detail-address" {...register('detailAddress')} />

@@ -16,6 +16,14 @@ const Title = styled.h2`
 export default function NewPlacePage() {
   const placeStore = usePlaceStore();
 
+  const {
+    register, watch, handleSubmit, formState: { errors },
+  } = useForm({ reValidateMode: 'onSubmit' });
+
+  const onSubmit = async (data) => {
+    await placeStore.requestForAddingNewPlace(data);
+  };
+
   const changeRoadAddress = (address) => {
     placeStore.setRoadAddress(address);
   };
@@ -33,12 +41,12 @@ export default function NewPlacePage() {
     placeStore.setSigungu(sigungu);
   };
 
-  const {
-    register, watch, handleSubmit, formState: { errors },
-  } = useForm({ reValidateMode: 'onSubmit' });
+  const changeLatitude = (latitude) => {
+    placeStore.setLatitude(latitude);
+  };
 
-  const onSubmit = async (data) => {
-    await placeStore.requestForAddingNewPlace(data);
+  const changeLongitude = (longitude) => {
+    placeStore.setLongitude(longitude);
   };
 
   return (
@@ -54,6 +62,8 @@ export default function NewPlacePage() {
         changeJibunAddress={changeJibunAddress}
         changeSido={changeSido}
         changeSigungu={changeSigungu}
+        changeLatitude={changeLatitude}
+        changeLongitude={changeLongitude}
       />
     </Container>
   );

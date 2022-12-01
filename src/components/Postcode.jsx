@@ -2,8 +2,10 @@
 import { useState } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 
+const { kakao } = window;
+
 export default function Postcode({
-  changeRoadAddress, changeJibunAddress, changeSido, changeSigungu,
+  changeRoadAddress, changeJibunAddress, changeSido, changeSigungu, changeLatitude, changeLongitude,
 }) {
   const open = useDaumPostcodePopup();
 
@@ -48,6 +50,16 @@ export default function Postcode({
       changeRoadAddress(data.roadAddress);
       changeJibunAddress(data.jibunAddress);
     }
+
+    const geocoder = new kakao.maps.services.Geocoder();
+
+    geocoder.addressSearch(fullAddress, (result, status) => {
+      if (status === kakao.maps.services.Status.OK) {
+        const { x, y } = result[0];
+        changeLongitude(x);
+        changeLatitude(y);
+      }
+    });
   };
 
   const handlePostCodeOpenClick = () => {
