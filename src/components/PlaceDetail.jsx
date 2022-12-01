@@ -1,8 +1,33 @@
-export default function PlaceDetail({ selectedPlace }) {
+import { useNavigate } from 'react-router-dom';
+
+export default function PlaceDetail({ selectedPlace, deletePlace }) {
   console.log(selectedPlace);
+
+  const navigate = useNavigate();
+
+  const handleModifyPlaceDetailClick = (id) => {
+    navigate(`/places/${id}/modify`);
+  };
+
+  const handleDeletePlaceClick = (id) => {
+    deletePlace(id);
+  };
+
   return (
     <div>
       <p>place detail</p>
+      <button
+        type="button"
+        onClick={() => handleModifyPlaceDetailClick(selectedPlace.placeId)}
+      >
+        수정하기
+      </button>
+      <button
+        type="button"
+        onClick={() => handleDeletePlaceClick(selectedPlace.placeId)}
+      >
+        삭제하기
+      </button>
       {Object.keys(selectedPlace).length ? (
         <div>
           <p>id</p>

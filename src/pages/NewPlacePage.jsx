@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import NewPlaceForm from '../components/NewPlaceForm';
 import usePlaceStore from '../hooks/usePlaceStore';
@@ -16,12 +17,15 @@ const Title = styled.h2`
 export default function NewPlacePage() {
   const placeStore = usePlaceStore();
 
+  const navigate = useNavigate();
+
   const {
     register, watch, handleSubmit, formState: { errors },
   } = useForm({ reValidateMode: 'onSubmit' });
 
   const onSubmit = async (data) => {
     await placeStore.requestForAddingNewPlace(data);
+    navigate('/places');
   };
 
   const changeRoadAddress = (address) => {
