@@ -2,7 +2,9 @@
 import { useState } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 
-export default function Postcode() {
+export default function Postcode({
+  changeRoadAddress, changeJibunAddress, changeSido, changeSigungu,
+}) {
   const open = useDaumPostcodePopup();
 
   const [roadAddress, setLoadAddress] = useState('');
@@ -11,6 +13,9 @@ export default function Postcode() {
   const handleComplete = (data) => {
     let fullAddress = data.address;
     let extraAddress = '';
+
+    changeSido(data.sido);
+    changeSigungu(data.sigungu);
 
     if (data.addressType === 'R') {
       if (data.bname !== '') {
@@ -23,6 +28,9 @@ export default function Postcode() {
 
       setLoadAddress(fullAddress); // 도로명 주소
       setJibunAddress(data.jibunAddress); // 지번주소
+
+      changeRoadAddress(fullAddress);
+      changeJibunAddress(data.jibunAddress);
     }
 
     if (data.addressType === 'J') {
@@ -36,6 +44,9 @@ export default function Postcode() {
 
       setLoadAddress(data.roadAddress); // 도로명 주소
       setJibunAddress(data.jibunAddress); // 지번주소
+
+      changeRoadAddress(data.roadAddress);
+      changeJibunAddress(data.jibunAddress);
     }
   };
 
@@ -70,15 +81,6 @@ export default function Postcode() {
             placeholder="지번주소"
             disabled
             value={jibunAddress}
-          />
-        </label>
-      </p>
-      <p>
-        <label htmlFor="detail-address">
-          상세 주소
-          <input
-            id="detail-address"
-            placeholder="상세 주소를 입력해주세요"
           />
         </label>
       </p>

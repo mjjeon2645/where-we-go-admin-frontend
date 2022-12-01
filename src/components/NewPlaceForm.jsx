@@ -4,6 +4,7 @@ import Postcode from './Postcode';
 
 export default function NewPlaceForm({
   register, handleSubmit, errors, onSubmit,
+  changeRoadAddress, changeJibunAddress, changeSido, changeSigungu,
 }) {
   return (
     <div>
@@ -24,20 +25,27 @@ export default function NewPlaceForm({
           )}
         </div>
         <div>
-          <Postcode />
+          <Postcode
+            changeRoadAddress={changeRoadAddress}
+            changeJibunAddress={changeJibunAddress}
+            changeSido={changeSido}
+            changeSigungu={changeSigungu}
+          />
+          <label htmlFor="detail-address">상세주소</label>
+          <input id="detail-address" {...register('detailAddress')} />
         </div>
         <div>
           <label htmlFor="place-category">장소 유형</label>
           <select {...register('category')}>
             <option value="select" hidden selected disabled>선택</option>
-            <option value="sports">스포츠/레저</option>
-            <option value="education">교육/체험</option>
-            <option value="camping">숙박/캠핑</option>
-            <option value="exhibition">전시/공연</option>
-            <option value="nature">자연</option>
-            <option value="kids-cafe">키즈카페</option>
-            <option value="food">키즈존 맛집</option>
-            <option value="site">유적지</option>
+            <option>스포츠/레저</option>
+            <option>교육/체험</option>
+            <option>숙박/캠핑</option>
+            <option>전시/공연</option>
+            <option>자연</option>
+            <option>키즈카페</option>
+            <option>키즈존 맛집</option>
+            <option>유적지</option>
           </select>
         </div>
         <div>
@@ -116,32 +124,32 @@ export default function NewPlaceForm({
         </div>
         <div>
           <p>외부음식</p>
-          <label htmlFor="outdoorfood-possible">
+          <label htmlFor="outside-food-possible">
             <input
-              {...register('outdoorfood', { required: true })}
+              {...register('outsideFood', { required: true })}
               type="radio"
               value="possible"
-              id="outdoorfood-possible"
+              id="outside-food-possible"
             />
             {' '}
             가능
           </label>
-          <label htmlFor="outdoorfood-impossible">
+          <label htmlFor="outside-food-impossible">
             <input
-              {...register('outdoorfood', { required: true })}
+              {...register('outsideFood', { required: true })}
               type="radio"
               value="impossible"
-              id="outdoorfood-impossible"
+              id="outside-food-impossible"
             />
             {' '}
             불가능
           </label>
-          <label htmlFor="outdoorfood-unchecked">
+          <label htmlFor="outside-food-unchecked">
             <input
-              {...register('outdoorfood', { required: true })}
+              {...register('outsideFood', { required: true })}
               type="radio"
               value="unchecked"
-              id="outdoorfood-unchecked"
+              id="outside-food-unchecked"
             />
             {' '}
             방문 전 확인 필요
@@ -149,32 +157,32 @@ export default function NewPlaceForm({
         </div>
         <div>
           <p>수유실</p>
-          <label htmlFor="nursingroom-possible">
+          <label htmlFor="nursing-room-possible">
             <input
-              {...register('nursingroom', { required: true })}
+              {...register('nursingRoom', { required: true })}
               type="radio"
               value="possible"
-              id="nursingroom-possible"
+              id="nursing-room-possible"
             />
             {' '}
             가능
           </label>
-          <label htmlFor="nursingroom-impossible">
+          <label htmlFor="nursing-room-impossible">
             <input
-              {...register('nursingroom', { required: true })}
+              {...register('nursingRoom', { required: true })}
               type="radio"
               value="impossible"
-              id="nursingroom-impossible"
+              id="nursing-room-impossible"
             />
             {' '}
             불가능
           </label>
-          <label htmlFor="nursingroom-unchecked">
+          <label htmlFor="nursing-room-unchecked">
             <input
-              {...register('nursingroom', { required: true })}
+              {...register('nursingRoom', { required: true })}
               type="radio"
               value="unchecked"
-              id="nursingroom-unchecked"
+              id="nursing-room-unchecked"
             />
             {' '}
             방문 전 확인 필요
@@ -187,7 +195,7 @@ export default function NewPlaceForm({
             <label htmlFor="weekday-start">
               <input
                 {...register(
-                  'weekday-start',
+                  'weekdayStart',
                   {
                     required: { value: true },
                     pattern: { value: '[0-9]{2}:[0-9]{2}' },
@@ -201,7 +209,7 @@ export default function NewPlaceForm({
             <label htmlFor="weekday-end">
               <input
                 {...register(
-                  'weekday-end',
+                  'weekdayEnd',
                   {
                     required: { value: true },
                     pattern: { value: '[0-9]{2}:[0-9]{2}' },
@@ -218,7 +226,7 @@ export default function NewPlaceForm({
             <label htmlFor="weekend-start">
               <input
                 {...register(
-                  'weekend-start',
+                  'weekendStart',
                   {
                     required: { value: true },
                     pattern: { value: '[0-9]{2}:[0-9]{2}' },
@@ -232,7 +240,7 @@ export default function NewPlaceForm({
             <label htmlFor="weekend-end">
               <input
                 {...register(
-                  'weekend-end',
+                  'weekendEnd',
                   {
                     required: { value: true },
                     pattern: { value: '[0-9]{2}:[0-9]{2}' },
