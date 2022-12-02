@@ -1,19 +1,39 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import UserReviewsList from '../components/UserReviewsList';
-import useUserStore from '../hooks/useUserStore';
+import useUserReviewStore from '../hooks/useUserReviewStore';
 
 export default function UserReviewsPage() {
-  const userStore = useUserStore();
+  const navigate = useNavigate();
 
-  const { allUserReviews } = userStore;
+  const userReviewStore = useUserReviewStore();
+
+  const { allUserReviews } = userReviewStore;
 
   useEffect(() => {
-    userStore.fetchAllUserReviews();
+    userReviewStore.fetchAllUserReviews();
   }, []);
+
+  const selectedUserDetailPage = (id) => {
+    navigate(`/users/${id}`);
+  };
+
+  const selectedReviewDetailPage = (id) => {
+    navigate(`/reviews/${id}`);
+  };
+
+  const selectedPlaceDetailPage = (id) => {
+    navigate(`/places/${id}`);
+  };
 
   return (
     <div>
-      <UserReviewsList allUserReviews={allUserReviews} />
+      <UserReviewsList
+        allUserReviews={allUserReviews}
+        selectedUserDetailPage={selectedUserDetailPage}
+        selectedReviewDetailPage={selectedReviewDetailPage}
+        selectedPlaceDetailPage={selectedPlaceDetailPage}
+      />
     </div>
   );
 }
