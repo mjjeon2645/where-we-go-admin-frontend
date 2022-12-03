@@ -33,6 +33,14 @@ export default class PlaceApiService {
     const url = `${baseUrl}/admin-places/${id}`;
     await axios.delete(url);
   }
+
+  async upload(formData) {
+    const url = `${baseUrl}/admin-places/images`;
+    const { data } = await axios.post(url, formData);
+    console.log(data);
+
+    return data;
+  }
 }
 
 export const placeApiService = new PlaceApiService();

@@ -19,11 +19,18 @@ export default function NewPlacePage() {
 
   const navigate = useNavigate();
 
-  const {
-    register, watch, handleSubmit, formState: { errors },
-  } = useForm({ reValidateMode: 'onSubmit' });
+  const formData = new FormData();
 
-  const onSubmit = async (data) => {
+  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
+
+  const uploadFirstImage = async (event) => {
+    const image = event.target.files[0];
+    formData.append('multipartFile', image);
+
+    await placeStore.uploadFirstImage(formData);
+  };
+
+  const submit = async (data) => {
     await placeStore.requestForAddingNewPlace(data);
     navigate('/places');
   };
@@ -57,11 +64,11 @@ export default function NewPlacePage() {
     <Container>
       <Title>장소 등록하기</Title>
       <NewPlaceForm
-        register={register}
-        watch={watch}
-        handleSubmit={handleSubmit}
+        uploadFirstImage={uploadFirstImage}
         errors={errors}
-        onSubmit={onSubmit}
+        register={register}
+        handleSubmit={handleSubmit}
+        submit={submit}
         changeRoadAddress={changeRoadAddress}
         changeJibunAddress={changeJibunAddress}
         changeSido={changeSido}

@@ -3,12 +3,16 @@
 import Postcode from './Postcode';
 
 export default function NewPlaceForm({
-  register, handleSubmit, errors, onSubmit,
+  uploadFirstImage, errors, register, handleSubmit, submit,
   changeRoadAddress, changeJibunAddress, changeSido, changeSigungu, changeLatitude, changeLongitude,
 }) {
+  const handleFirstImageChange = (event) => {
+    uploadFirstImage(event);
+  };
+
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(submit)}>
         <div>
           <label htmlFor="place-name">장소명</label>
           <input
@@ -253,6 +257,16 @@ export default function NewPlaceForm({
               />
               까지
             </label>
+          </div>
+          <div>
+            <label htmlFor="first-image">첫 번째 이미지</label>
+            <input
+              type="file"
+              accept="image/*"
+              placeholder="첫 번째 이미지를 넣어주세요"
+              id="first-image"
+              onChange={handleFirstImageChange}
+            />
           </div>
         </div>
         <button type="submit">등록하기</button>

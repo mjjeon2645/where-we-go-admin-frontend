@@ -78,7 +78,15 @@ export default class PlaceStore extends Store {
   }
 
   async deletePlace(id) {
-    const response = await placeApiService.deletePlace(id);
+    await placeApiService.deletePlace(id);
+  }
+
+  async uploadFirstImage(formData) {
+    const imageUrl = await placeApiService.upload(formData);
+
+    this.firstImageUrl = imageUrl;
+
+    this.publish();
   }
 }
 
