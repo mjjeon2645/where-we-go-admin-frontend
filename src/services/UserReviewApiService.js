@@ -13,11 +13,18 @@ export default class UserReviewApiService {
     return data.userReviews;
   }
 
-  async selectedUserReview(id) {
-    const url = `${baseUrl}/admin-user-reviews/${id}`;
+  async selectedUserReview(reviewId) {
+    const url = `${baseUrl}/admin-user-reviews/${reviewId}`;
     const { data } = await axios.get(url);
 
     return data;
+  }
+
+  async fetchAllReviewsByUserId(userId) {
+    const url = `${baseUrl}/admin-user-reviews/userId/${userId}`;
+    const { data } = await axios.get(url);
+
+    return data.userReviews;
   }
 
   async deleteReview(id) {

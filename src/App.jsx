@@ -9,6 +9,8 @@ import PlacesPage from './pages/PlacesPage';
 import UserReviewDetailPage from './pages/UserReviewDetailPage';
 import UserReviewsPage from './pages/UserReviewsPage';
 import GlobalStyle from './styles/GlobalStyle';
+import UsersPage from './pages/UsersPage';
+import UserDetailPage from './pages/UserDetailPage';
 
 export default function App() {
   return (
@@ -23,6 +25,8 @@ export default function App() {
           <Route path="/places/new" element={<NewPlacePage />} />
           <Route path="/reviews" element={<UserReviewsPage />} />
           <Route path="/reviews/:id" element={<UserReviewDetailPage />} />
+          <Route path="/users" element={<UsersPage />} />
+          <Route path="/users/:id" element={<UserDetailPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </ModalProvider>
