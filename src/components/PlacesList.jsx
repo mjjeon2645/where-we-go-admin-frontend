@@ -37,7 +37,6 @@ export default function PlacesList({ places, goPlaceDetailPage }) {
     goPlaceDetailPage(id);
   };
 
-  console.log(places);
   return (
     <Container>
       {places.length ? (

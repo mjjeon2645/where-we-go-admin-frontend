@@ -9,6 +9,8 @@ export default class UserReviewStore extends Store {
     this.allUserReviews = [];
     this.userReview = {};
 
+    this.userReviewsFoundByUserId = [];
+
     this.deleteReason = '';
   }
 
@@ -28,8 +30,13 @@ export default class UserReviewStore extends Store {
     await userReviewApiService.deleteReview(id);
   }
 
+  async fetchAllReviewsByUserId(userId) {
+    const userReviewsFoundByUserId = await userReviewApiService.fetchAllReviewsByUserId(userId);
+    this.userReviewsFoundByUserId = userReviewsFoundByUserId;
+    this.publish();
+  }
+
   setDeleteReason(text) {
-    console.log(text);
     this.deleteReason = text;
     this.publish();
   }
