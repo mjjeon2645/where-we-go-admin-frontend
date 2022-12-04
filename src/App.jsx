@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { Reset } from 'styled-reset';
 import { ModalProvider } from 'styled-react-modal';
-import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import NewPlacePage from './pages/NewPlacePage';
 import PlaceDetailPage from './pages/PlaceDetailPage';
@@ -11,6 +10,8 @@ import UserReviewsPage from './pages/UserReviewsPage';
 import GlobalStyle from './styles/GlobalStyle';
 import UsersPage from './pages/UsersPage';
 import UserDetailPage from './pages/UserDetailPage';
+import SignUpPage from './pages/SignUpPage';
+import WelcomePage from './pages/WelcomePage';
 
 export default function App() {
   return (
@@ -20,6 +21,8 @@ export default function App() {
       <ModalProvider>
         <Routes>
           <Route path="/" element={<LoginPage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="/welcome" element={<WelcomePage />} />
           <Route path="/places" element={<PlacesPage />} />
           <Route path="/places/:id" element={<PlaceDetailPage />} />
           <Route path="/places/new" element={<NewPlacePage />} />
