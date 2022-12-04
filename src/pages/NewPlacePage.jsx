@@ -17,13 +17,31 @@ const Title = styled.h2`
 export default function NewPlacePage() {
   const placeStore = usePlaceStore();
 
+  const { firstImageUrl, secondImageUrl, thirdImageUrl } = placeStore;
+
   const navigate = useNavigate();
 
-  const {
-    register, watch, handleSubmit, formState: { errors },
-  } = useForm({ reValidateMode: 'onSubmit' });
+  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
 
-  const onSubmit = async (data) => {
+  const uploadFirstImage = async (event) => {
+    const imageFile = event.target.files[0];
+
+    await placeStore.uploadFirstImage(imageFile);
+  };
+
+  const uploadSecondImage = async (event) => {
+    const imageFile = event.target.files[0];
+
+    await placeStore.uploadSecondImage(imageFile);
+  };
+
+  const uploadThirdImage = async (event) => {
+    const imageFile = event.target.files[0];
+
+    await placeStore.uploadThirdImage(imageFile);
+  };
+
+  const submit = async (data) => {
     await placeStore.requestForAddingNewPlace(data);
     navigate('/places');
   };
@@ -57,11 +75,16 @@ export default function NewPlacePage() {
     <Container>
       <Title>장소 등록하기</Title>
       <NewPlaceForm
-        register={register}
-        watch={watch}
-        handleSubmit={handleSubmit}
+        uploadFirstImage={uploadFirstImage}
+        firstImageUrl={firstImageUrl}
+        uploadSecondImage={uploadSecondImage}
+        secondImageUrl={secondImageUrl}
+        uploadThirdImage={uploadThirdImage}
+        thirdImageUrl={thirdImageUrl}
         errors={errors}
-        onSubmit={onSubmit}
+        register={register}
+        handleSubmit={handleSubmit}
+        submit={submit}
         changeRoadAddress={changeRoadAddress}
         changeJibunAddress={changeJibunAddress}
         changeSido={changeSido}
