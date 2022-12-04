@@ -15,6 +15,10 @@ export default class PlaceStore extends Store {
     this.sigunguFromPostCode = '';
     this.latitude = 0;
     this.longitude = 0;
+
+    this.firstImageUrl = '';
+    this.secondImageUrl = '';
+    this.thirdImageUrl = '';
   }
 
   async fetchPlaces() {
@@ -74,17 +78,39 @@ export default class PlaceStore extends Store {
       sigungu: this.sigunguFromPostCode,
     };
 
-    const response = await placeApiService.addNewPlace(data, address, position);
+    const imageSource = {
+      firstImage: this.firstImageUrl,
+      secondImage: this.secondImageUrl,
+      thirdImage: this.thirdImageUrl,
+    };
+
+    const response = await placeApiService.addNewPlace(data, address, position, imageSource);
   }
 
   async deletePlace(id) {
     await placeApiService.deletePlace(id);
   }
 
-  async uploadFirstImage(formData) {
-    const imageUrl = await placeApiService.upload(formData);
+  async uploadFirstImage(imageFile) {
+    const imageUrl = await placeApiService.upload(imageFile);
 
     this.firstImageUrl = imageUrl;
+
+    this.publish();
+  }
+
+  async uploadSecondImage(imageFile) {
+    const imageUrl = await placeApiService.upload(imageFile);
+
+    this.secondImageUrl = imageUrl;
+
+    this.publish();
+  }
+
+  async uploadThirdImage(imageFile) {
+    const imageUrl = await placeApiService.upload(imageFile);
+
+    this.thirdImageUrl = imageUrl;
 
     this.publish();
   }

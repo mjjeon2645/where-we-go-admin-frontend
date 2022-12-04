@@ -17,17 +17,28 @@ const Title = styled.h2`
 export default function NewPlacePage() {
   const placeStore = usePlaceStore();
 
-  const navigate = useNavigate();
+  const { firstImageUrl, secondImageUrl, thirdImageUrl } = placeStore;
 
-  const formData = new FormData();
+  const navigate = useNavigate();
 
   const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
 
   const uploadFirstImage = async (event) => {
-    const image = event.target.files[0];
-    formData.append('multipartFile', image);
+    const imageFile = event.target.files[0];
 
-    await placeStore.uploadFirstImage(formData);
+    await placeStore.uploadFirstImage(imageFile);
+  };
+
+  const uploadSecondImage = async (event) => {
+    const imageFile = event.target.files[0];
+
+    await placeStore.uploadSecondImage(imageFile);
+  };
+
+  const uploadThirdImage = async (event) => {
+    const imageFile = event.target.files[0];
+
+    await placeStore.uploadThirdImage(imageFile);
   };
 
   const submit = async (data) => {
@@ -65,6 +76,11 @@ export default function NewPlacePage() {
       <Title>장소 등록하기</Title>
       <NewPlaceForm
         uploadFirstImage={uploadFirstImage}
+        firstImageUrl={firstImageUrl}
+        uploadSecondImage={uploadSecondImage}
+        secondImageUrl={secondImageUrl}
+        uploadThirdImage={uploadThirdImage}
+        thirdImageUrl={thirdImageUrl}
         errors={errors}
         register={register}
         handleSubmit={handleSubmit}
