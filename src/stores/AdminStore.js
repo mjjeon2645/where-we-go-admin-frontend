@@ -22,6 +22,14 @@ export default class AdminStore extends Store {
       return '';
     }
   }
+
+  async adminSignUp({
+    name, adminId, employeeIdentificationNumber, password,
+  }) {
+    await adminApiService.signUp({
+      name, adminId, employeeIdentificationNumber, password,
+    });
+  }
 }
 
 export const adminStore = new AdminStore();
