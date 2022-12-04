@@ -19,7 +19,7 @@ export default function App() {
       <GlobalStyle />
       <ModalProvider>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<LoginPage />} />
           <Route path="/places" element={<PlacesPage />} />
           <Route path="/places/:id" element={<PlaceDetailPage />} />
           <Route path="/places/new" element={<NewPlacePage />} />
@@ -27,7 +27,6 @@ export default function App() {
           <Route path="/reviews/:id" element={<UserReviewDetailPage />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/users/:id" element={<UserDetailPage />} />
-          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </ModalProvider>
     </div>
