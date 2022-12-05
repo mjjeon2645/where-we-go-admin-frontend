@@ -1,33 +1,21 @@
-import { useNavigate } from 'react-router-dom';
-
-export default function PlaceDetail({ selectedPlace, deletePlace }) {
-  console.log(selectedPlace);
-
-  const navigate = useNavigate();
-
-  const handleModifyPlaceDetailClick = (id) => {
-    navigate(`/places/${id}/modify`);
-  };
-
+export default function PlaceDetail({ selectedPlace, deletePlace, goPrevPage }) {
   const handleDeletePlaceClick = (id) => {
     deletePlace(id);
   };
 
+  const handleGoBackClick = () => {
+    goPrevPage();
+  };
+
   return (
     <div>
-      <p>place detail</p>
-      <button
-        type="button"
-        onClick={() => handleModifyPlaceDetailClick(selectedPlace.placeId)}
-      >
-        수정하기
-      </button>
       <button
         type="button"
         onClick={() => handleDeletePlaceClick(selectedPlace.placeId)}
       >
         삭제하기
       </button>
+      <button type="button" onClick={handleGoBackClick}>뒤로가기</button>
       {Object.keys(selectedPlace).length ? (
         <div>
           <p>id</p>

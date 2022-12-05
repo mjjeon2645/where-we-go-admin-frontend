@@ -8,9 +8,9 @@ const baseUrl = config.apiBaseUrl;
 export default class AdminApiService {
   async login({ id, password }) {
     const url = `${baseUrl}/admin-session`;
-    const { data } = await axios.post(url, { identifier: id, password });
+    const { data } = await axios.post(url, { socialLoginId: id, password });
 
-    return data.admin;
+    return data;
   }
 
   async signUp({

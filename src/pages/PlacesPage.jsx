@@ -5,7 +5,11 @@ import PlacesList from '../components/PlacesList';
 import usePlaceStore from '../hooks/usePlaceStore';
 
 const Container = styled.div`
-//
+  padding: 5em;
+`;
+
+const Strong = styled.strong`
+  color: #ff6416;
 `;
 
 export default function PlacesPage() {
@@ -23,10 +27,20 @@ export default function PlacesPage() {
     navigate(`/places/${id}`);
   };
 
+  const handleAddPlaceClick = () => {
+    navigate('/places/new');
+  };
+
   return (
     <Container>
-      places page
       <PlacesList places={places} goPlaceDetailPage={goPlaceDetailPage} />
+      <p>
+        총
+        {' '}
+        <Strong>{places.length}</Strong>
+        개 장소가 있습니다.
+      </p>
+      <button type="button" onClick={handleAddPlaceClick}>장소 추가하기</button>
     </Container>
   );
 }

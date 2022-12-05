@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+const Container = styled.div`
+  padding: 5em;
+`;
+
 const Table = styled.table`
   text-align: center;
 `;
@@ -38,8 +42,7 @@ export default function UsersList({ users, goUserDetailPage }) {
   };
 
   return (
-    <div>
-      users list
+    <Container>
       <Table>
         <thead>
           <tr>
@@ -73,6 +76,6 @@ export default function UsersList({ users, goUserDetailPage }) {
           ))}
         </tbody>
       </Table>
-    </div>
+    </Container>
   );
 }

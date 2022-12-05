@@ -6,7 +6,7 @@ import usePlaceStore from '../hooks/usePlaceStore';
 import { sidoFormatter } from '../utils/addressFormatter';
 
 const Container = styled.div`
-  padding: 3em;
+  padding: 5em;
 `;
 
 const Title = styled.h2`
@@ -17,7 +17,10 @@ const Title = styled.h2`
 export default function NewPlacePage() {
   const placeStore = usePlaceStore();
 
-  const { firstImageUrl, secondImageUrl, thirdImageUrl } = placeStore;
+  const {
+    firstImageUrl, secondImageUrl, thirdImageUrl,
+    isMissingAddress, isMissingCategory, errorMessage,
+  } = placeStore;
 
   const navigate = useNavigate();
 
@@ -42,7 +45,12 @@ export default function NewPlacePage() {
   };
 
   const submit = async (data) => {
-    await placeStore.requestForAddingNewPlace(data);
+    const response = await placeStore.requestForAddingNewPlace(data);
+    if (!response) {
+      return;
+    }
+
+    placeStore.clearAddPlaceState();
     navigate('/places');
   };
 
@@ -71,6 +79,11 @@ export default function NewPlacePage() {
     placeStore.setLongitude(longitude);
   };
 
+  const goPrevPage = () => {
+    placeStore.clearAddPlaceState();
+    navigate(-1);
+  };
+
   return (
     <Container>
       <Title>장소 등록하기</Title>
@@ -91,6 +104,10 @@ export default function NewPlacePage() {
         changeSigungu={changeSigungu}
         changeLatitude={changeLatitude}
         changeLongitude={changeLongitude}
+        goPrevPage={goPrevPage}
+        isMissingAddress={isMissingAddress}
+        isMissingCategory={isMissingCategory}
+        errorMessage={errorMessage}
       />
     </Container>
   );

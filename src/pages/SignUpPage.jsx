@@ -6,30 +6,38 @@ import useAdminStore from '../hooks/useAdminStore';
 export default function SignUpPage() {
   const adminStore = useAdminStore();
 
-  const { isAdminIdDuplicated, errorMessage } = adminStore;
+  const navigate = useNavigate();
+
+  const { isAdminAlreadyExist, isAdminIdDuplicated, errorMessage } = adminStore;
 
   const {
     register, watch, handleSubmit, formState: { errors },
   } = useForm({ reValidateMode: 'onSubmit' });
 
-  const navigate = useNavigate();
+  const goPrevPage = () => {
+    navigate(-1);
+  };
 
   const onSubmit = async (data) => {
-    adminStore.signUpState = '';
+    // adminStore.signUpState = '';
 
     const {
       name, adminId, employeeIdentificationNumber, password, checkPassword,
     } = data;
 
-    await adminStore.adminSignUp({
+    const response = await adminStore.adminSignUp({
       name, adminId, employeeIdentificationNumber, password,
     });
 
-    if (adminStore.isCheckPasswordRight) {
+    if (adminStore.isAdminIdDuplicated) {
       return;
     }
 
-    if (adminStore.isAdminIdDuplicated) {
+    if (adminStore.isAdminAlreadyExist) {
+      return;
+    }
+
+    if (!response) {
       return;
     }
 
@@ -38,15 +46,16 @@ export default function SignUpPage() {
 
   return (
     <div>
-      어드민 계정 생성하기
       <SignUpForm
         register={register}
         watch={watch}
         handleSubmit={handleSubmit}
         errors={errors}
         onSubmit={onSubmit}
+        isAdminAlreadyExist={isAdminAlreadyExist}
         isAdminIdDuplicated={isAdminIdDuplicated}
         errorMessage={errorMessage}
+        goPrevPage={goPrevPage}
       />
     </div>
   );

@@ -60,9 +60,22 @@ const Signup = styled.button`
   margin-top: 1em;
 `;
 
+const Cancel = styled.button`
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  padding: 1.2em 2.8em;
+  margin-top: 1em;
+`;
+
 export default function SignUpForm({
-  register, watch, handleSubmit, errors, onSubmit, isAdminIdDuplicated, errorMessage,
+  register, watch, handleSubmit, errors, onSubmit, isAdminAlreadyExist,
+  isAdminIdDuplicated, errorMessage, goPrevPage,
 }) {
+  const handleCancelClick = () => {
+    goPrevPage();
+  };
+
   return (
     <Wrapper>
       <Title>SIGN UP</Title>
@@ -95,12 +108,15 @@ export default function SignUpForm({
               'employeeIdentificationNumber',
               {
                 required: { value: true, message: '사번 4자리를 입력해주세요' },
+                pattern: { value: /^[0-9]{4}$/, message: '사번을 다시 확인해주세요' },
               },
             )}
             error={errors.employeeIdentificationNumber}
           />
           {errors.employeeIdentificationNumber ? (
             <Error>{errors.employeeIdentificationNumber.message}</Error>
+          ) : isAdminAlreadyExist ? (
+            <Error>{errorMessage}</Error>
           )
             : <Message>숫자 4자리로 구성된 사번 입력</Message>}
         </Field>
@@ -116,14 +132,13 @@ export default function SignUpForm({
                 pattern: { value: /^[a-z0-9]{4,16}$/, message: '아이디를 다시 확인해주세요' },
               },
             )}
-            error={errors.userId}
+            error={errors.adminId}
           />
-          {isAdminIdDuplicated ? (
-            <Error>{errorMessage}</Error>
-          ) : errors.userId ? (
+          {errors.adminId ? (
             <Error>{errors.adminId.message}</Error>
-          )
-            : <Message>영문 소문자/숫자, 4~16자만 사용 가능</Message>}
+          ) : isAdminIdDuplicated ? (
+            <Error>{errorMessage}</Error>
+          ) : <Message>영문 소문자/숫자, 4~16자만 사용 가능</Message>}
         </Field>
         <Field>
           <Label htmlFor="input-password">비밀번호 :</Label>
@@ -169,6 +184,7 @@ export default function SignUpForm({
               : (<Error>비밀번호가 일치하지 않습니다</Error>)) : null}
         </Field>
         <Signup type="submit">어드민 계정 생성하기</Signup>
+        <Cancel type="button" onClick={handleCancelClick}>취소</Cancel>
       </form>
     </Wrapper>
   );

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { dateFormatter } from '../utils/dateFormatter';
 
 const Container = styled.div`
-    padding: 3em;
+    padding: 5em;
 `;
 
 export default function UserReviewDetail({ userReview, toggleModal, goToPrevPage }) {
@@ -37,7 +37,7 @@ export default function UserReviewDetail({ userReview, toggleModal, goToPrevPage
             <tr>
               <th>방문일</th>
               <td />
-              <td>{userReview.dateOfVisit}</td>
+              <td>{dateFormatter(userReview.dateOfVisit)}</td>
             </tr>
             <tr>
               <th>방문 장소</th>
