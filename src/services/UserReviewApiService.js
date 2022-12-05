@@ -6,6 +6,14 @@ import config from '../config';
 const baseUrl = config.apiBaseUrl;
 
 export default class UserReviewApiService {
+  constructor() {
+    this.accessToken = '';
+  }
+
+  setAccessToken(accessToken) {
+    this.accessToken = accessToken;
+  }
+
   async fetchAllUserReviews() {
     const url = `${baseUrl}/admin-user-reviews`;
     const { data } = await axios.get(url);
@@ -27,9 +35,15 @@ export default class UserReviewApiService {
     return data.userReviews;
   }
 
-  async deleteReview(id) {
+  async deleteReview(id, password, reason) {
     const url = `${baseUrl}/admin-user-reviews/${id}`;
-    await axios.delete(url);
+    const data = await axios.post(url, { password, reason }, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    return data;
   }
 }
 

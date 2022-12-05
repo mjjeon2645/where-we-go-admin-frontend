@@ -12,6 +12,8 @@ export default class UserReviewStore extends Store {
     this.userReviewsFoundByUserId = [];
 
     this.deleteReason = '';
+    this.adminPassword = '';
+    this.errorMessage = '';
   }
 
   async fetchAllUserReviews() {
@@ -27,7 +29,18 @@ export default class UserReviewStore extends Store {
   }
 
   async deleteReview(id) {
-    await userReviewApiService.deleteReview(id);
+    try {
+      const data = await userReviewApiService
+        .deleteReview(id, this.adminPassword, this.deleteReason);
+
+      return data;
+    } catch (error) {
+      const { message } = error.response.data;
+      this.errorMessage = message;
+      this.publish();
+
+      return '';
+    }
   }
 
   async fetchAllReviewsByUserId(userId) {
@@ -38,6 +51,19 @@ export default class UserReviewStore extends Store {
 
   setDeleteReason(text) {
     this.deleteReason = text;
+    this.publish();
+  }
+
+  setAdminPassword(text) {
+    this.adminPassword = text;
+    this.publish();
+  }
+
+  clearDeleteState() {
+    this.deleteReason = '';
+    this.adminPassword = '';
+    this.errorMessage = '';
+
     this.publish();
   }
 }

@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import Modal from 'styled-react-modal';
+import { todayFormatter } from '../utils/dateFormatter';
 
 const StyledModal = Modal.styled`
   position: relative;
   width: 25em;
-  height: 18em;
+  height: 24em;
   
   display: flex;
   flex-direction: column;
@@ -24,7 +25,6 @@ const Title = styled.p`
 `;
 
 const Content = styled.div`
-    /* text-align: center; */
     p {
         margin-block: .2em;
     }
@@ -61,9 +61,17 @@ const Delete = styled.button`
     border-radius: 4px;
   `;
 
+const Error = styled.p`
+  color: #ff0000;
+`;
+
 export default function DeleteReviewModal({
-  isOpen, toggleModal, deleteReview, setDeleteReason,
+  isOpen, toggleModal, deleteReview, setDeleteReason, adminId,
+  employeeIdentificationNumber, setAdminPassword, errorMessage,
 }) {
+  const date = new Date();
+  const today = todayFormatter(date);
+
   const handleDeleteReviewClick = () => {
     deleteReview();
   };
@@ -76,6 +84,10 @@ export default function DeleteReviewModal({
     setDeleteReason(event.target.value);
   };
 
+  const handleAdminPasswordChange = (event) => {
+    setAdminPassword(event.target.value);
+  };
+
   return (
     <StyledModal
       isOpen={isOpen}
@@ -84,13 +96,32 @@ export default function DeleteReviewModal({
     >
       <Title>리뷰를 삭제합니다.</Title>
       <Content>
-        <p>담당자: ~~~ 여기 아이디 들어가야함~~~</p>
-        <p>삭제일: ~~~ 여기 날짜 들어가야함~~~</p>
+        <p>
+          담당자 ID:
+          {' '}
+          {adminId}
+        </p>
+        <p>
+          담당자 사번:
+          {' '}
+          {employeeIdentificationNumber}
+        </p>
+        <p>
+          삭제일:
+          {' '}
+          {today}
+        </p>
         <p>사유:</p>
         <TextField
           type="text"
           onChange={handleDeleteReasonChange}
         />
+        <p>담당자 비밀번호:</p>
+        <input
+          type="password"
+          onChange={handleAdminPasswordChange}
+        />
+        {errorMessage && (<Error>{errorMessage}</Error>)}
       </Content>
       <CloseButton type="button" onClick={closeModal}>X</CloseButton>
       <DirectionButtons>

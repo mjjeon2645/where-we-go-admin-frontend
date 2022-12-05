@@ -92,7 +92,7 @@ export default function UserReviewsList({
           </table>
         </div>
       ) : (
-        <p>now loading...</p>
+        <p>작성된 사용자 리뷰가 없습니다.</p>
       )}
     </Container>
   );

@@ -7,6 +7,7 @@ export default class AdminStore extends Store {
     super();
 
     this.adminId = '';
+    this.employeeIdentificationNumber = 0;
 
     this.signUpState = '';
     this.errorMessage = '';
@@ -16,6 +17,7 @@ export default class AdminStore extends Store {
     try {
       const data = await adminApiService.login({ id, password });
       this.adminId = data.socialLoginId;
+      this.employeeIdentificationNumber = data.employeeIdentificationNumber;
       this.publish();
       this.clearError();
 
@@ -49,6 +51,23 @@ export default class AdminStore extends Store {
       if (message === '이미 존재하는 아이디입니다. 다른 아이디를 입력해주세요') {
         this.changeSignUpState('duplicated', { errorMessage: message });
       }
+
+      return '';
+    }
+  }
+
+  async fetchAdmin() {
+    try {
+      const data = await adminApiService.fetchAdmin();
+      this.adminId = data.socialLoginId;
+      this.employeeIdentificationNumber = data.employeeIdentificationNumber;
+      this.publish();
+
+      return data;
+    } catch (error) {
+      const { message } = error.response.data;
+      this.errorMessage = message;
+      this.publish();
 
       return '';
     }
