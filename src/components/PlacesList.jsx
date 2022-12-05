@@ -74,7 +74,7 @@ export default function PlacesList({ places, goPlaceDetailPage }) {
           </Table>
         </div>
       ) : (
-        <p>now loading...</p>
+        <p>등록된 장소가 없습니다.</p>
       )}
     </Container>
   );

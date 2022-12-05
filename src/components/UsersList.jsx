@@ -43,39 +43,43 @@ export default function UsersList({ users, goUserDetailPage }) {
 
   return (
     <Container>
-      <Table>
-        <thead>
-          <tr>
-            <Number>No.</Number>
-            <SelectBox>선택</SelectBox>
-            <Identifier>고유번호</Identifier>
-            <Nickname>닉네임</Nickname>
-            <Email>이메일</Email>
-            <SocialLoginId>소셜 로그인 ID</SocialLoginId>
-            <AuthBy>인증 주체</AuthBy>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={user.id}>
-              <td>{users.length - index}</td>
-              <td><input type="checkbox" /></td>
-              <td>{user.id}</td>
-              <td>
-                <button
-                  type="button"
-                  onClick={() => handleUserDetailClick(user.id)}
-                >
-                  {user.nickname}
-                </button>
-              </td>
-              <td>{user.email}</td>
-              <td>{user.socialLoginId}</td>
-              <td>{user.authBy}</td>
+      {users.length ? (
+        <Table>
+          <thead>
+            <tr>
+              <Number>No.</Number>
+              <SelectBox>선택</SelectBox>
+              <Identifier>고유번호</Identifier>
+              <Nickname>닉네임</Nickname>
+              <Email>이메일</Email>
+              <SocialLoginId>소셜 로그인 ID</SocialLoginId>
+              <AuthBy>인증 주체</AuthBy>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {users.map((user, index) => (
+              <tr key={user.id}>
+                <td>{users.length - index}</td>
+                <td><input type="checkbox" /></td>
+                <td>{user.id}</td>
+                <td>
+                  <button
+                    type="button"
+                    onClick={() => handleUserDetailClick(user.id)}
+                  >
+                    {user.nickname}
+                  </button>
+                </td>
+                <td>{user.email}</td>
+                <td>{user.socialLoginId}</td>
+                <td>{user.authBy}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      ) : (
+        <p>등록된 유저가 없습니다.</p>
+      )}
     </Container>
   );
 }
