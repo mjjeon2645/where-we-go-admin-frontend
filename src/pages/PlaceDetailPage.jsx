@@ -5,7 +5,7 @@ import PlaceDetail from '../components/PlaceDetail';
 import usePlaceStore from '../hooks/usePlaceStore';
 
 const Container = styled.div`
-  padding: 3em;
+  padding: 5em;
 `;
 
 export default function PlaceDetailPage() {
@@ -26,10 +26,17 @@ export default function PlaceDetailPage() {
     navigate('/places');
   };
 
+  const goPrevPage = () => {
+    navigate(-1);
+  };
+
   return (
     <Container>
-      place detail page
-      <PlaceDetail selectedPlace={selectedPlace} deletePlace={deletePlace} />
+      <PlaceDetail
+        selectedPlace={selectedPlace}
+        deletePlace={deletePlace}
+        goPrevPage={goPrevPage}
+      />
     </Container>
   );
 }

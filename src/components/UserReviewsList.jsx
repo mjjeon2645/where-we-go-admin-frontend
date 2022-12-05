@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { dateFormatter } from '../utils/dateFormatter';
 
 const Container = styled.div`
-  padding: 3em;
+  padding: 5em;
 `;
 
 const Number = styled.th`
@@ -36,8 +36,6 @@ const Place = styled.th`
 export default function UserReviewsList({
   allUserReviews, selectedUserDetailPage, selectedReviewDetailPage, selectedPlaceDetailPage,
 }) {
-  console.log(allUserReviews);
-
   const handleUserDetailClick = (userId) => {
     selectedUserDetailPage(userId);
   };

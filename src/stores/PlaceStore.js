@@ -19,6 +19,9 @@ export default class PlaceStore extends Store {
     this.firstImageUrl = '';
     this.secondImageUrl = '';
     this.thirdImageUrl = '';
+
+    this.newPlaceState = '';
+    this.errorMessage = '';
   }
 
   async fetchPlaces() {
@@ -84,7 +87,21 @@ export default class PlaceStore extends Store {
       thirdImage: this.thirdImageUrl,
     };
 
-    const response = await placeApiService.addNewPlace(data, address, position, imageSource);
+    try {
+      const response = await placeApiService.addNewPlace(data, address, position, imageSource);
+
+      return response;
+    } catch (error) {
+      const { message } = error.response.data;
+      if (message === '주소를 입력해주세요') {
+        this.changeNewPlaceState('missingAddress', { errorMessage: message });
+      }
+
+      if (message === '장소 유형을 선택해주세요') {
+        this.changeNewPlaceState('missingCategory', { errorMessage: message });
+      }
+      return '';
+    }
   }
 
   async deletePlace(id) {
@@ -113,6 +130,33 @@ export default class PlaceStore extends Store {
     this.thirdImageUrl = imageUrl;
 
     this.publish();
+  }
+
+  changeNewPlaceState(state, { errorMessage = '' } = {}) {
+    this.newPlaceState = state;
+    this.errorMessage = errorMessage;
+    this.publish();
+  }
+
+  get isMissingAddress() {
+    return this.newPlaceState === 'missingAddress';
+  }
+
+  get isMissingCategory() {
+    return this.newPlaceState === 'missingCategory';
+  }
+
+  clearAddPlaceState() {
+    this.roadAddress = '';
+    this.jibunAddress = '';
+    this.sidoFromPostCode = '';
+    this.sigunguFromPostCode = '';
+    this.latitude = 0;
+    this.longitude = 0;
+
+    this.firstImageUrl = '';
+    this.secondImageUrl = '';
+    this.thirdImageUrl = '';
   }
 }
 

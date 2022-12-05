@@ -7,18 +7,24 @@ export default class AdminStore extends Store {
     super();
 
     this.adminId = '';
+
+    this.signUpState = '';
     this.errorMessage = '';
   }
 
   async adminLogin({ id, password }) {
     try {
-      const { accessToken, adminId } = await adminApiService.login({ id, password });
-      this.adminId = adminId;
+      const data = await adminApiService.login({ id, password });
+      this.adminId = data.socialLoginId;
+      this.publish();
+      this.clearError();
+
+      return data.accessToken;
+    } catch (error) {
+      const { message } = error.response.data;
+      this.errorMessage = message;
       this.publish();
 
-      return accessToken;
-    } catch (error) {
-      const message = error.response.data;
       return '';
     }
   }
@@ -26,9 +32,45 @@ export default class AdminStore extends Store {
   async adminSignUp({
     name, adminId, employeeIdentificationNumber, password,
   }) {
-    await adminApiService.signUp({
-      name, adminId, employeeIdentificationNumber, password,
-    });
+    try {
+      const data = await adminApiService.signUp({
+        name, adminId, employeeIdentificationNumber, password,
+      });
+
+      this.clearError();
+
+      return data;
+    } catch (error) {
+      const { message } = error.response.data;
+      if (message === '이미 어드민 권한을 가진 사원입니다. 로그인을 진행해주세요') {
+        this.changeSignUpState('exist', { errorMessage: message });
+      }
+
+      if (message === '이미 존재하는 아이디입니다. 다른 아이디를 입력해주세요') {
+        this.changeSignUpState('duplicated', { errorMessage: message });
+      }
+
+      return '';
+    }
+  }
+
+  changeSignUpState(state, { errorMessage = '' } = {}) {
+    this.signUpState = state;
+    this.errorMessage = errorMessage;
+    this.publish();
+  }
+
+  clearError() {
+    this.signUpState = '';
+    this.errorMessage = '';
+  }
+
+  get isAdminAlreadyExist() {
+    return this.signUpState === 'exist';
+  }
+
+  get isAdminIdDuplicated() {
+    return this.signUpState === 'duplicated';
   }
 }
 

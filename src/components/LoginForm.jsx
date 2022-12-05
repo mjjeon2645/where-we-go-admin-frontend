@@ -57,11 +57,12 @@ const SignUp = styled.button`
 `;
 
 export default function LoginForm({
-  onSubmit, register, handleSubmit, errors, goSignUp,
+  onSubmit, register, handleSubmit, errors, errorMessage, goSignUp,
 }) {
   const handleSignUpClick = () => {
     goSignUp();
   };
+
   return (
     <Wrapper>
       <Title>Admin Login</Title>
@@ -74,7 +75,7 @@ export default function LoginForm({
             'adminId',
             { required: { value: true, message: '아이디를 입력해주세요' } },
           )}
-          error={errors.userId}
+          error={errors.adminId}
         />
         <Input
           id="input-password"
@@ -92,6 +93,8 @@ export default function LoginForm({
         )
           : errors.password ? (
             <Error>{errors.password.message}</Error>
+          ) : errorMessage ? (
+            <Error>{errorMessage}</Error>
           ) : ''}
         <Login type="submit">로그인</Login>
       </form>
