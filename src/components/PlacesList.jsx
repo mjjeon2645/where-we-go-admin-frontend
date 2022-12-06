@@ -1,11 +1,51 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-    padding: 3em;
+    /* padding: 3em; */
+`;
+
+const SubFunction = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3em;
+  margin-bottom: .5em;
+
+  button {
+    color: #FFF;
+    background: #054468;
+    border: none;
+    border-radius: 8px;
+    padding: .5em 1em;
+  }
+
+  strong {
+    color: #ff6416;
+  }
 `;
 
 const Table = styled.table`
   text-align: center;
+  width: 100%;
+
+  th {
+    font-size: .8em;
+    font-weight: bold;
+    padding-block: 1em;
+    background-color: #EEE;
+  }
+
+  td {
+    font-size: .8em;
+    padding-block: 1em;
+    padding-inline: .2em;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #DDD;
+  }
 `;
 
 const Number = styled.th`
@@ -28,7 +68,10 @@ const Category = styled.th`
   width: 10%;
 `;
 
-export default function PlacesList({ places, goPlaceDetailPage }) {
+export default function PlacesList({ places, goAddPlacePage, goPlaceDetailPage }) {
+  const handleAddPlaceClick = () => {
+    goAddPlacePage();
+  };
   const handlePlaceDetailClick = (id) => {
     goPlaceDetailPage(id);
   };
@@ -37,6 +80,15 @@ export default function PlacesList({ places, goPlaceDetailPage }) {
     <Container>
       {places.length ? (
         <div>
+          <SubFunction>
+            <button type="button" onClick={handleAddPlaceClick}>신규 장소 추가하기</button>
+            <p>
+              총
+              {' '}
+              <strong>{places.length}</strong>
+              개
+            </p>
+          </SubFunction>
           <Table>
             <thead>
               <tr>

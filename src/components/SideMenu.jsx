@@ -57,7 +57,7 @@ const List = styled.ul`
       color: #0c7db1;
 
       background:white;
-      border-right: 2px solid rgb(5, 68, 104);
+      border-right: 2px solid #054468;
     }
 
     button {
