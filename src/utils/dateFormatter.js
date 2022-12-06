@@ -1,5 +1,5 @@
-export function dateFormatter(localeDateTime) {
-  return localeDateTime.slice(0, 10);
+export function dateFormatter(localDateTime) {
+  return localDateTime.slice(0, 10);
 }
 
 export function todayFormatter(today) {

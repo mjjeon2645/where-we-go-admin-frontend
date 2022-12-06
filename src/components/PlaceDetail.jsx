@@ -38,9 +38,23 @@ const BusinessHoursTitle = styled.span`
 
 const ImageSection = styled.div`
   margin-block: 2em;
+
   p {
     font-weight: bold;
     margin-bottom: 1em;
+  }
+
+  div {
+    width: 500px;
+    height: 300px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -141,15 +155,21 @@ export default function PlaceDetail({ selectedPlace, deletePlace, goPrevPage }) 
           </BusinessHours>
           <ImageSection>
             <p>이미지 1 미리보기</p>
-            <img src={selectedPlace.imageSource.firstImage} alt="" />
+            <div>
+              <img src={selectedPlace.imageSource.firstImage} alt="" />
+            </div>
           </ImageSection>
           <ImageSection>
             <p>이미지 2 미리보기</p>
-            <img src={selectedPlace.imageSource.secondImage} alt="" />
+            <div>
+              <img src={selectedPlace.imageSource.secondImage} alt="" />
+            </div>
           </ImageSection>
           <ImageSection>
             <p>이미지 3 미리보기</p>
-            <img src={selectedPlace.imageSource.thirdImage} alt="" />
+            <div>
+              <img src={selectedPlace.imageSource.thirdImage} alt="" />
+            </div>
           </ImageSection>
           <Buttons>
             <DeleteButton
