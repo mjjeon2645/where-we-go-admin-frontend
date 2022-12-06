@@ -5,8 +5,101 @@
 import styled from 'styled-components';
 import Postcode from './Postcode';
 
+const Container = styled.div`
+  margin-top: 4em;
+`;
+
+const Field = styled.div`
+  margin-bottom: 2em;
+  width: 40%;
+`;
+
+const RadioButtonField = styled.div`
+  margin-bottom: 2em;
+  width: 40%;
+
+  /* p {
+    font-size: .9em;
+    color: #A0A0A0;
+    display: block;
+    text-align: left;
+    margin-bottom: .5em;
+  } */
+
+  label {
+    font-size: .8em;
+    margin-right: .7em;
+    color: #333333;
+  }
+`;
+
+const Label = styled.label`
+  font-size: .9em;
+  color: #A0A0A0;
+  display: block;
+  text-align: left;
+  margin-bottom: .5em;
+`;
+
+const Input = styled.input`
+  display: block;
+  width: 100%;
+  padding-block: .6em;
+  padding-inline: .6em;
+  margin-bottom: .7em;
+  
+  :focus {
+    outline: 1px solid #054468;
+    }
+`;
+
+const Select = styled.select`
+  padding: .6em .8em;
+`;
+
+const BusinessHoursField = styled.div`
+  margin-bottom: 2em;
+  width: 60%;
+
+  span, label {
+    font-size: .8em;
+    margin-inline: 0 .3em;
+  }
+
+  input {
+    margin: 0 .5em;
+  }
+`;
+
+const ButinessHoursTitle = styled.p`
+  font-size: .9em;
+  color: #A0A0A0;
+  display: block;
+  text-align: left;
+  margin-bottom: .5em;
+`;
+
+const SubmitButton = styled.button`
+  color: #FFF;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  margin-inline: 1em;
+  padding: 1em 20px;
+  background-color: #054468;
+`;
+
+const CancelButton = styled.button`
+  border: none;
+  border-radius: 8px;
+  margin-inline: 1em;
+  padding: 1em 30px;
+  background-color: #DDD;
+`;
+
 const Error = styled.p`
   color: #ff0000;
+  margin-top: .3em;
 `;
 
 export default function NewPlaceForm({
@@ -32,24 +125,24 @@ export default function NewPlaceForm({
   };
 
   return (
-    <div>
+    <Container>
       <form onSubmit={handleSubmit(submit)}>
-        <div>
-          <label htmlFor="place-name">장소명</label>
-          <input
+        <Field>
+          <Label htmlFor="place-name">장소명: </Label>
+          <Input
             id="place-name"
             placeholder="15자 이내 작성 가능"
             {...register('placeName', {
               required: { value: true, message: '15자 이내의 장소 이름을 정확히 입력해주세요' },
-              maxLength: 15,
+              maxLength: { value: 15, message: '장소 이름은 15자 이내로 작성 가능합니다.' },
             })}
             error={errors.placeName}
           />
           {errors.placeName && (
             <Error>{errors.placeName.message}</Error>
           )}
-        </div>
-        <div>
+        </Field>
+        <Field>
           <Postcode
             changeRoadAddress={changeRoadAddress}
             changeJibunAddress={changeJibunAddress}
@@ -58,13 +151,13 @@ export default function NewPlaceForm({
             changeLatitude={changeLatitude}
             changeLongitude={changeLongitude}
           />
-          <label htmlFor="detail-address">상세주소</label>
-          <input id="detail-address" {...register('detailAddress')} />
+          <Label htmlFor="detail-address">상세 주소: </Label>
+          <Input id="detail-address" {...register('detailAddress')} />
           {isMissingAddress && (<Error>{errorMessage}</Error>)}
-        </div>
-        <div>
-          <label htmlFor="place-category">장소 유형</label>
-          <select
+        </Field>
+        <Field>
+          <Label htmlFor="place-category">장소 유형: </Label>
+          <Select
             {...register('category', { required: { value: true } })}
           >
             <option value="select" hidden selected disabled>선택</option>
@@ -76,13 +169,12 @@ export default function NewPlaceForm({
             <option>키즈카페</option>
             <option>키즈존 맛집</option>
             <option>유적지</option>
-          </select>
+          </Select>
           {isMissingCategory && (<Error>{errorMessage}</Error>)}
-        </div>
-        <div>
-          <p>연락처</p>
-          <label htmlFor="place-phone">전화번호</label>
-          <input
+        </Field>
+        <Field>
+          <Label htmlFor="place-phone">전화번호: </Label>
+          <Input
             id="place-phone"
             {...register('phone', {
               required: { value: true, message: '연락처를 입력해주세요' },
@@ -92,8 +184,10 @@ export default function NewPlaceForm({
           {errors.phone && (
             <Error>{errors.phone.message}</Error>
           )}
-          <label htmlFor="place-homepage">홈페이지</label>
-          <input
+        </Field>
+        <Field>
+          <Label htmlFor="place-homepage">홈페이지: </Label>
+          <Input
             id="place-homepage"
             {...register('homepage', {
               required: { value: true, message: '홈페이지 주소를 입력해주세요' },
@@ -103,10 +197,9 @@ export default function NewPlaceForm({
           {errors.homepage && (
             <Error>{errors.homepage.message}</Error>
           )}
-        </div>
-        <p>편의시설</p>
-        <div>
-          <p>주차</p>
+        </Field>
+        <RadioButtonField>
+          <p>주차: </p>
           <label htmlFor="parking-possible">
             <input
               {...register('parking', {
@@ -147,9 +240,9 @@ export default function NewPlaceForm({
           {errors.parking && (
             <Error>{errors.parking.message}</Error>
           )}
-        </div>
-        <div>
-          <p>예약</p>
+        </RadioButtonField>
+        <RadioButtonField>
+          <p>예약: </p>
           <label htmlFor="reservation-possible">
             <input
               {...register('reservation', {
@@ -190,9 +283,9 @@ export default function NewPlaceForm({
           {errors.reservation && (
             <Error>{errors.reservation.message}</Error>
           )}
-        </div>
-        <div>
-          <p>외부음식</p>
+        </RadioButtonField>
+        <RadioButtonField>
+          <p>외부음식: </p>
           <label htmlFor="outside-food-possible">
             <input
               {...register('outsideFood', {
@@ -233,9 +326,9 @@ export default function NewPlaceForm({
           {errors.outsideFood && (
             <Error>{errors.outsideFood.message}</Error>
           )}
-        </div>
-        <div>
-          <p>수유실</p>
+        </RadioButtonField>
+        <RadioButtonField>
+          <p>수유실: </p>
           <label htmlFor="nursing-room-possible">
             <input
               {...register('nursingRoom', {
@@ -276,11 +369,11 @@ export default function NewPlaceForm({
           {errors.nursingRoom && (
             <Error>{errors.nursingRoom.message}</Error>
           )}
-        </div>
+        </RadioButtonField>
         <div>
-          <p>영업시간</p>
-          <div>
-            <p>평일</p>
+          <ButinessHoursTitle>영업시간: </ButinessHoursTitle>
+          <BusinessHoursField>
+            <span>평일</span>
             <label htmlFor="weekday-start">
               <input
                 {...register(
@@ -318,9 +411,9 @@ export default function NewPlaceForm({
                 <Error>{errors.weekdayEnd.message}</Error>
               ) : ('')
             )}
-          </div>
-          <div>
-            <p>주말</p>
+          </BusinessHoursField>
+          <BusinessHoursField>
+            <span>주말</span>
             <label htmlFor="weekend-start">
               <input
                 {...register(
@@ -358,9 +451,9 @@ export default function NewPlaceForm({
                 <Error>{errors.weekendEnd.message}</Error>
               ) : ('')
             )}
-          </div>
-          <div>
-            <label htmlFor="first-image">첫 번째 이미지</label>
+          </BusinessHoursField>
+          <Field>
+            <Label htmlFor="first-image">첫 번째 이미지: </Label>
             <input
               {...register(
                 'firstImage',
@@ -378,9 +471,9 @@ export default function NewPlaceForm({
             {errors.firstImage && (
               <Error>{errors.firstImage.message}</Error>
             )}
-          </div>
-          <div>
-            <label htmlFor="second-image">두 번째 이미지</label>
+          </Field>
+          <Field>
+            <Label htmlFor="second-image">두 번째 이미지: </Label>
             <input
               {...register(
                 'secondImage',
@@ -398,9 +491,9 @@ export default function NewPlaceForm({
             {errors.secondImage && (
               <Error>{errors.secondImage.message}</Error>
             )}
-          </div>
-          <div>
-            <label htmlFor="third-image">세 번째 이미지</label>
+          </Field>
+          <Field>
+            <Label htmlFor="third-image">세 번째 이미지: </Label>
             <input
               {...register(
                 'thirdImage',
@@ -418,11 +511,11 @@ export default function NewPlaceForm({
             {errors.thirdImage && (
               <Error>{errors.thirdImage.message}</Error>
             )}
-          </div>
+          </Field>
         </div>
-        <button type="submit">등록하기</button>
-        <button type="button" onClick={handleGoPrevPageClick}>취소</button>
+        <SubmitButton type="submit">등록하기</SubmitButton>
+        <CancelButton type="button" onClick={handleGoPrevPageClick}>취소</CancelButton>
       </form>
-    </div>
+    </Container>
   );
 }

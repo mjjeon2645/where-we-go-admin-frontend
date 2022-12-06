@@ -6,11 +6,11 @@ import usePlaceStore from '../hooks/usePlaceStore';
 import { sidoFormatter } from '../utils/addressFormatter';
 
 const Container = styled.div`
-  padding: 5em;
+  padding: 5em 2em;
 `;
 
 const Title = styled.h2`
-  font-size: 2em;
+  font-size: 1.8em;
   font-weight: bold;
 `;
 
@@ -86,7 +86,13 @@ export default function NewPlacePage() {
 
   return (
     <Container>
-      <Title>장소 등록하기</Title>
+      <Title>
+        장소 관리
+        {' '}
+        {'>'}
+        {' '}
+        신규 장소 추가하기
+      </Title>
       <NewPlaceForm
         uploadFirstImage={uploadFirstImage}
         firstImageUrl={firstImageUrl}
