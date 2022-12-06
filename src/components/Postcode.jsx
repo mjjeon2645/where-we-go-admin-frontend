@@ -1,8 +1,48 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useState } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
+import styled from 'styled-components';
 
 const { kakao } = window;
+
+const Container = styled.div`
+  margin-block: 2em;
+`;
+
+const Title = styled.p`
+  font-size: .9em;
+  color: #A0A0A0;
+  margin-bottom: .5em;
+`;
+
+const Label = styled.label`
+  font-size: .8em;
+
+  strong {
+    display: inline-block;
+    width: 80px;
+    margin-block: .8em;
+    padding-left: .5em;
+  }
+
+  input {
+    width: 230px;
+    padding-block: .3em;
+  }
+`;
+
+const FindButton = styled.div`
+  text-align: right;
+
+  button {
+    background-color: #054468;
+    color: #FFF;
+    margin-top: 1em;
+    border: none;
+    padding: .5em 1em;
+    border-radius: 8px;
+  }
+`;
 
 export default function Postcode({
   changeRoadAddress, changeJibunAddress, changeSido, changeSigungu, changeLatitude, changeLongitude,
@@ -77,33 +117,35 @@ export default function Postcode({
   };
 
   return (
-    <div>
-      <p>주소</p>
-      <button type="button" onClick={handlePostCodeOpenClick}>
-        주소 찾기
-      </button>
+    <Container>
+      <Title>주소: </Title>
       <p>
-        <label htmlFor="road-address">
-          도로명 주소
+        <Label htmlFor="road-address">
+          <strong>도로명 주소</strong>
           <input
             id="road-address"
             placeholder="도로명주소"
             disabled
             value={roadAddress}
           />
-        </label>
+        </Label>
       </p>
       <p>
-        <label htmlFor="jibun-address">
-          지번 주소
+        <Label htmlFor="jibun-address">
+          <strong>지번 주소</strong>
           <input
             id="jibun-address"
             placeholder="지번주소"
             disabled
             value={jibunAddress}
           />
-        </label>
+        </Label>
       </p>
-    </div>
+      <FindButton>
+        <button type="button" onClick={handlePostCodeOpenClick}>
+          주소 찾기
+        </button>
+      </FindButton>
+    </Container>
   );
 }
