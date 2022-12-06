@@ -11,8 +11,9 @@ const Wrapper = styled.div`
 
 const Title = styled.h2`
   font-size: 2em;
+  color: #1D5C84;
   font-weight: bold;
-  border-bottom: 1px solid #83e8ca;
+  border-bottom: 1px solid #1D5C84;
   margin-bottom: 1.5em;
   padding-bottom: .3em;
 `;
@@ -29,7 +30,7 @@ const Input = styled.input`
     }
 
     :focus {
-    outline: 1px solid #42deb6;
+    outline: 1px solid #1D5C84;
     }
 `;
 
