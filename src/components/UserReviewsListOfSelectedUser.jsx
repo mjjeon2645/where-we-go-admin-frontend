@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { dateFormatter } from '../utils/dateFormatter';
 
 const Container = styled.div`
-  margin-bottom: 3em;
+  margin-bottom: 5em;
 `;
 
 const Title = styled.p`
@@ -11,11 +11,25 @@ const Title = styled.p`
   margin-block: 1em;
 `;
 
-const Number = styled.th`
-  width: 5%;
+const Table = styled.table`
+  text-align: center;
+  width: 100%;
+
+  th {
+    font-size: .8em;
+    font-weight: bold;
+    padding-block: 1em;
+    background-color: #EEE;
+  }
+
+  td {
+    font-size: .8em;
+    padding-block: 1em;
+    padding-inline: .2em;
+  }
 `;
 
-const SelectBox = styled.th`
+const Number = styled.th`
   width: 5%;
 `;
 
@@ -36,7 +50,7 @@ const Rate = styled.th`
 `;
 
 const Place = styled.th`
-  width: 20%;
+  width: 25%;
 `;
 
 export default function UserReviewsListOfSelectedUser({ userReviews }) {
@@ -44,38 +58,36 @@ export default function UserReviewsListOfSelectedUser({ userReviews }) {
     <Container>
       <Title>작성한 리뷰 목록</Title>
       {userReviews.length ? (
-        <table>
+        <Table>
           <thead>
             <tr>
-              <th>No.</th>
-              <th>선택</th>
-              <th>작성일</th>
-              <th>작성자 닉네임</th>
-              <th>내용</th>
-              <th>평점</th>
-              <th>장소명</th>
+              <Number>No.</Number>
+              <CreatedAt>작성일</CreatedAt>
+              <Nickname>작성자 닉네임</Nickname>
+              <Body>내용</Body>
+              <Rate>평점</Rate>
+              <Place>장소명</Place>
             </tr>
           </thead>
           <tbody>
             {userReviews.map((review, index) => (
               <tr key={review.id}>
-                <Number>{userReviews.length - index}</Number>
-                <SelectBox><input type="checkbox" /></SelectBox>
-                <CreatedAt>{dateFormatter(review.createdAt)}</CreatedAt>
-                <Nickname>
+                <td>{userReviews.length - index}</td>
+                <td>{dateFormatter(review.createdAt)}</td>
+                <td>
                   {review.nickname}
-                </Nickname>
-                <Body>
+                </td>
+                <td>
                   {review.body}
-                </Body>
-                <Rate>{review.rate}</Rate>
-                <Place>
+                </td>
+                <td>{review.rate}</td>
+                <td>
                   {review.placeName}
-                </Place>
+                </td>
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       ) : (
         <p>등록한 리뷰가 없습니다.</p>
       )}
