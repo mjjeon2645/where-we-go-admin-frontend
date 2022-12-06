@@ -8,7 +8,9 @@ export default function SignUpPage() {
 
   const navigate = useNavigate();
 
-  const { isAdminAlreadyExist, isAdminIdDuplicated, errorMessage } = adminStore;
+  const {
+    isAdminAlreadyExist, isAdminIdDuplicated, errorMessage, profileImageUrl,
+  } = adminStore;
 
   const {
     register, watch, handleSubmit, formState: { errors },
@@ -16,6 +18,12 @@ export default function SignUpPage() {
 
   const goPrevPage = () => {
     navigate(-1);
+  };
+
+  const uploadProfileImage = async (event) => {
+    const imageFile = event.target.files[0];
+
+    await adminStore.uploadProfileImage(imageFile);
   };
 
   const onSubmit = async (data) => {
@@ -56,6 +64,8 @@ export default function SignUpPage() {
         isAdminIdDuplicated={isAdminIdDuplicated}
         errorMessage={errorMessage}
         goPrevPage={goPrevPage}
+        uploadProfileImage={uploadProfileImage}
+        profileImageUrl={profileImageUrl}
       />
     </div>
   );

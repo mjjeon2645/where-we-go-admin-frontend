@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-nested-ternary */
 import styled from 'styled-components';
 
@@ -70,10 +72,14 @@ const Cancel = styled.button`
 
 export default function SignUpForm({
   register, watch, handleSubmit, errors, onSubmit, isAdminAlreadyExist,
-  isAdminIdDuplicated, errorMessage, goPrevPage,
+  isAdminIdDuplicated, errorMessage, goPrevPage, uploadProfileImage, profileImageUrl,
 }) {
   const handleCancelClick = () => {
     goPrevPage();
+  };
+
+  const handleProfileImageChange = (event) => {
+    uploadProfileImage(event);
   };
 
   return (
@@ -182,6 +188,26 @@ export default function SignUpForm({
             ? (errors.checkPassword.message === '비밀번호를 입력해주세요'
               ? (<Error>{errors.checkPassword.message}</Error>)
               : (<Error>비밀번호가 일치하지 않습니다</Error>)) : null}
+        </Field>
+        <Field>
+          <label htmlFor="profile-image">프로필 이미지: </label>
+          <input
+            {...register(
+              'profileImage',
+              {
+                required: { value: true, message: '프로필 이미지를 업로드 해주세요' },
+              },
+            )}
+            error={errors.profileImage}
+            type="file"
+            accept="image/*"
+            id="first-image"
+            onChange={handleProfileImageChange}
+          />
+          <img src={profileImageUrl} alt="" />
+          {errors.firstImage && (
+            <Error>{errors.firstImage.message}</Error>
+          )}
         </Field>
         <Signup type="submit">어드민 계정 생성하기</Signup>
         <Cancel type="button" onClick={handleCancelClick}>취소</Cancel>

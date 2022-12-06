@@ -5,6 +5,8 @@ import config from '../config';
 
 const baseUrl = config.apiBaseUrl;
 
+const { cloudinaryName, cloudinaryKey } = config;
+
 export default class AdminApiService {
   constructor() {
     this.accessToken = '';
@@ -23,10 +25,14 @@ export default class AdminApiService {
 
   async signUp({
     name, adminId, employeeIdentificationNumber, password,
-  }) {
+  }, profileImageUrl) {
     const url = `${baseUrl}/admin-signup`;
     const { data } = await axios.post(url, {
-      name, socialLoginId: adminId, employeeIdentificationNumber, password,
+      name,
+      socialLoginId: adminId,
+      employeeIdentificationNumber,
+      password,
+      profileImage: profileImageUrl,
     });
 
     return data;
@@ -40,9 +46,26 @@ export default class AdminApiService {
       },
     });
 
-    console.log(data);
-
     return data;
+  }
+
+  async upload(imageFile) {
+    const url = `https://api.cloudinary.com/v1_1/${cloudinaryName}/image/upload/`;
+
+    const formData = new FormData();
+
+    formData.append('api_key', cloudinaryKey);
+    formData.append('upload_preset', 'wherewego');
+    formData.append('timestamp', (Date.now() / 1000) || 0);
+    formData.append('file', imageFile);
+
+    const configOfUpload = {
+      header: { 'Content-Type': 'multipart/form-data' },
+    };
+
+    const { data } = await axios.post(url, formData, configOfUpload);
+
+    return data.url;
   }
 }
 

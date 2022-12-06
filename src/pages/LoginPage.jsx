@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from 'usehooks-ts';
@@ -11,6 +12,10 @@ export default function LoginPage() {
   const { errorMessage } = adminStore;
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setAccessToken('');
+  }, []);
 
   const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
 

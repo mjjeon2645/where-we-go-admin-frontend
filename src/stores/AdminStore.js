@@ -6,8 +6,11 @@ export default class AdminStore extends Store {
   constructor() {
     super();
 
+    this.admin = {};
+
     this.adminId = '';
     this.employeeIdentificationNumber = 0;
+    this.profileImageUrl = '';
 
     this.signUpState = '';
     this.errorMessage = '';
@@ -37,7 +40,7 @@ export default class AdminStore extends Store {
     try {
       const data = await adminApiService.signUp({
         name, adminId, employeeIdentificationNumber, password,
-      });
+      }, this.profileImageUrl);
 
       this.clearError();
 
@@ -58,12 +61,13 @@ export default class AdminStore extends Store {
 
   async fetchAdmin() {
     try {
-      const data = await adminApiService.fetchAdmin();
-      this.adminId = data.socialLoginId;
-      this.employeeIdentificationNumber = data.employeeIdentificationNumber;
+      const admin = await adminApiService.fetchAdmin();
+      this.admin = admin;
+      this.adminId = admin.socialLoginId;
+      this.employeeIdentificationNumber = admin.employeeIdentificationNumber;
       this.publish();
 
-      return data;
+      return admin;
     } catch (error) {
       const { message } = error.response.data;
       this.errorMessage = message;
@@ -71,6 +75,14 @@ export default class AdminStore extends Store {
 
       return '';
     }
+  }
+
+  async uploadProfileImage(imageFile) {
+    const profileImageUrl = await adminApiService.upload(imageFile);
+
+    this.profileImageUrl = profileImageUrl;
+
+    this.publish();
   }
 
   changeSignUpState(state, { errorMessage = '' } = {}) {
