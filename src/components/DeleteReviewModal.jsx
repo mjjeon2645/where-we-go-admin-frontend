@@ -26,7 +26,7 @@ const Title = styled.p`
 
 const Content = styled.div`
     p {
-        margin-block: .2em;
+        margin-block: .3em;
     }
 `;
 
@@ -54,7 +54,7 @@ const CloseButton = styled.button`
 const Delete = styled.button`
     font-size: 1em;
     color: #FFF;
-    background-color: #ff9d13;
+    background-color: #054468;
     margin-inline: .3em;
     padding: .5em .7em;
     border: none;
@@ -116,7 +116,7 @@ export default function DeleteReviewModal({
           type="text"
           onChange={handleDeleteReasonChange}
         />
-        <p>담당자 비밀번호:</p>
+        <p>비밀번호:</p>
         <input
           type="password"
           onChange={handleAdminPasswordChange}

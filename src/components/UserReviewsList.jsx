@@ -2,14 +2,34 @@ import styled from 'styled-components';
 import { dateFormatter } from '../utils/dateFormatter';
 
 const Container = styled.div`
-  padding: 5em;
+  margin-top: 3em;
+`;
+
+const Table = styled.table`
+  text-align: center;
+  width: 100%;
+
+  th {
+    font-size: .8em;
+    font-weight: bold;
+    padding-block: 1em;
+    background-color: #EEE;
+  }
+
+  td {
+    font-size: .8em;
+    padding-block: 1em;
+    padding-inline: .2em;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #DDD;
+  }
 `;
 
 const Number = styled.th`
-  width: 5%;
-`;
-
-const SelectBox = styled.th`
   width: 5%;
 `;
 
@@ -30,7 +50,7 @@ const Rate = styled.th`
 `;
 
 const Place = styled.th`
-  width: 20%;
+  width: 25%;
 `;
 
 export default function UserReviewsList({
@@ -52,44 +72,42 @@ export default function UserReviewsList({
     <Container>
       {allUserReviews.length ? (
         <div>
-          <table>
+          <Table>
             <thead>
               <tr>
-                <th>No.</th>
-                <th>선택</th>
-                <th>작성일</th>
-                <th>작성자 닉네임</th>
-                <th>내용</th>
-                <th>평점</th>
-                <th>장소명</th>
+                <Number>No.</Number>
+                <CreatedAt>작성일</CreatedAt>
+                <Nickname>작성자 닉네임</Nickname>
+                <Body>내용</Body>
+                <Rate>평점</Rate>
+                <Place>장소명</Place>
               </tr>
             </thead>
             <tbody>
               {allUserReviews.map((review, index) => (
                 <tr key={review.id}>
-                  <Number>{allUserReviews.length - index}</Number>
-                  <SelectBox><input type="checkbox" /></SelectBox>
-                  <CreatedAt>{dateFormatter(review.createdAt)}</CreatedAt>
-                  <Nickname>
+                  <td>{allUserReviews.length - index}</td>
+                  <td>{dateFormatter(review.createdAt)}</td>
+                  <td>
                     <button type="button" onClick={() => handleUserDetailClick(review.userId)}>
                       {review.nickname}
                     </button>
-                  </Nickname>
-                  <Body>
+                  </td>
+                  <td>
                     <button type="button" onClick={() => handleUserReviewDetailClick(review.id)}>
                       {review.body}
                     </button>
-                  </Body>
-                  <Rate>{review.rate}</Rate>
-                  <Place>
+                  </td>
+                  <td>{review.rate}</td>
+                  <td>
                     <button type="button" onClick={() => handlePlaceDetailClick(review.placeId)}>
                       이름입니다
                     </button>
-                  </Place>
+                  </td>
                 </tr>
               ))}
             </tbody>
-          </table>
+          </Table>
         </div>
       ) : (
         <p>작성된 사용자 리뷰가 없습니다.</p>
