@@ -2,13 +2,7 @@ import styled from 'styled-components';
 import { dateFormatter } from '../utils/dateFormatter';
 
 const Container = styled.div`
-    padding: 5em;
-`;
-
-const Title = styled.p`
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-block: 1em;
+  margin-top: 3em;
 `;
 
 const Wrapper = styled.article`
@@ -27,7 +21,7 @@ const ReviewId = styled.section`
     font-weight: bold;
   }
 
-  span {
+  p:last-child {
     color: #6c6c6c;
   }
 `;
@@ -43,7 +37,7 @@ const Nickname = styled.section`
     font-weight: bold;
   }
 
-  span {
+  p:last-child {
     color: #6c6c6c;
   }
 `;
@@ -53,7 +47,7 @@ const DateOfWritten = styled.section`
   justify-content: space-between;
   align-items: center;
   padding-block: 1.2em;
-  border-block: 1px solid #EEE;
+  border-top: 1px solid #EEE;
 
   p:first-child {
     font-weight: bold;
@@ -69,7 +63,7 @@ const DateOfVisit = styled.section`
   justify-content: space-between;
   align-items: center;
   padding-block: 1.2em;
-  border-block: 1px solid #EEE;
+  border-top: 1px solid #EEE;
 
   p:first-child {
     font-weight: bold;
@@ -85,7 +79,7 @@ const PlaceName = styled.section`
   justify-content: space-between;
   align-items: center;
   padding-block: 1.2em;
-  border-bottom: 1px solid #EEE;
+  border-top: 1px solid #EEE;
 
   p:first-child {
     font-weight: bold;
@@ -101,13 +95,13 @@ const Rate = styled.section`
   justify-content: space-between;
   align-items: center;
   padding-block: 1.2em;
-  border-bottom: 1px solid #EEE;
+  border-top: 1px solid #EEE;
 
   p:first-child {
     font-weight: bold;
   }
 
-  span {
+  p:last-child {
     color: #6c6c6c;
   }
 `;
@@ -117,15 +111,38 @@ const Body = styled.section`
   justify-content: space-between;
   align-items: center;
   padding-block: 1.2em;
-  border-bottom: 1px solid #EEE;
+  border-block: 1px solid #EEE;
 
   p:first-child {
     font-weight: bold;
   }
 
-  span {
+  p:last-child {
     color: #6c6c6c;
   }
+`;
+
+const Buttons = styled.div`
+  text-align: center;
+  margin-top: 5em;
+`;
+
+const DeleteButton = styled.button`
+  color: #FFF;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  margin-inline: 1em;
+  padding: 1em 30px;
+  background-color: #054468;
+`;
+
+const BackButton = styled.button`
+  border: none;
+  border-radius: 8px;
+  margin-inline: 1em;
+  padding: 1em 30px;
+  background-color: #DDD;
 `;
 
 export default function UserReviewDetail({ userReview, toggleModal, goToPrevPage }) {
@@ -141,7 +158,6 @@ export default function UserReviewDetail({ userReview, toggleModal, goToPrevPage
     <Container>
       {Object.keys(userReview).length ? (
         <div>
-          <Title>리뷰 상세정보</Title>
           <Wrapper>
             <ReviewId>
               <p>리뷰 고유번호</p>
@@ -149,7 +165,7 @@ export default function UserReviewDetail({ userReview, toggleModal, goToPrevPage
             </ReviewId>
             <Nickname>
               <p>작성자 닉네임</p>
-              <span>{userReview.nickname}</span>
+              <p>{userReview.nickname}</p>
             </Nickname>
             <DateOfWritten>
               <p>작성일</p>
@@ -171,8 +187,10 @@ export default function UserReviewDetail({ userReview, toggleModal, goToPrevPage
               <p>내용</p>
               <p>{userReview.body}</p>
             </Body>
-            <button type="button" onClick={handleOpenModalClick}>삭제하기</button>
-            <button type="button" onClick={handlePageBackClick}>뒤로가기</button>
+            <Buttons>
+              <DeleteButton type="button" onClick={handleOpenModalClick}>삭제하기</DeleteButton>
+              <BackButton type="button" onClick={handlePageBackClick}>뒤로가기</BackButton>
+            </Buttons>
           </Wrapper>
         </div>
       ) : (
