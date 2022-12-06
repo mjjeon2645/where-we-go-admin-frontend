@@ -5,11 +5,12 @@ import PlacesList from '../components/PlacesList';
 import usePlaceStore from '../hooks/usePlaceStore';
 
 const Container = styled.div`
-  padding: 5em;
+  padding: 5em 2em;
 `;
 
-const Strong = styled.strong`
-  color: #ff6416;
+const Title = styled.h2`
+  font-size: 1.8em;
+  font-weight: bold;
 `;
 
 export default function PlacesPage() {
@@ -27,20 +28,24 @@ export default function PlacesPage() {
     navigate(`/places/${id}`);
   };
 
-  const handleAddPlaceClick = () => {
+  const goAddPlacePage = () => {
     navigate('/places/new');
   };
 
   return (
     <Container>
-      <PlacesList places={places} goPlaceDetailPage={goPlaceDetailPage} />
-      <p>
-        총
+      <Title>
+        장소 관리
         {' '}
-        <Strong>{places.length}</Strong>
-        개 장소가 있습니다.
-      </p>
-      <button type="button" onClick={handleAddPlaceClick}>장소 추가하기</button>
+        {'>'}
+        {' '}
+        전체
+      </Title>
+      <PlacesList
+        places={places}
+        goAddPlacePage={goAddPlacePage}
+        goPlaceDetailPage={goPlaceDetailPage}
+      />
     </Container>
   );
 }
