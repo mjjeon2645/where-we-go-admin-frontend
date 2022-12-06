@@ -5,7 +5,13 @@ import PlaceDetail from '../components/PlaceDetail';
 import usePlaceStore from '../hooks/usePlaceStore';
 
 const Container = styled.div`
-  padding: 5em;
+  padding: 5em 2em;
+`;
+
+const Title = styled.h2`
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-bottom: 2em;
 `;
 
 export default function PlaceDetailPage() {
@@ -32,6 +38,13 @@ export default function PlaceDetailPage() {
 
   return (
     <Container>
+      <Title>
+        장소 관리
+        {' '}
+        {'>'}
+        {' '}
+        상세 정보
+      </Title>
       <PlaceDetail
         selectedPlace={selectedPlace}
         deletePlace={deletePlace}
