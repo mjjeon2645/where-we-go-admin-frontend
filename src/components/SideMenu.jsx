@@ -46,11 +46,11 @@ const List = styled.ul`
     a {
       color: #FFF;
       display: block;
-    padding: 13px 30px;
-    border-bottom: 1px solid #b8bbbd;
-    color: rgb(241, 237, 237);
-    font-size: 16px;
-    position: relative;
+      padding: 13px 30px;
+      border-bottom: 1px solid #b8bbbd;
+      color: rgb(241, 237, 237);
+      font-size: 16px;
+      position: relative;
     }
 
     a:hover, a:active {
