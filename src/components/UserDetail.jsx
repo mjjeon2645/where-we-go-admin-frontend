@@ -5,7 +5,7 @@ import InformationOfSelectedUser from './InformationOfSelectedUser';
 import UserReviewsListOfSelectedUser from './UserReviewsListOfSelectedUser';
 
 const Container = styled.div`
-    padding: 3em;
+    /* padding: 3em; */
 `;
 
 export default function UserDetail({
@@ -18,7 +18,6 @@ export default function UserDetail({
     <Container>
       {Object.keys(user).length ? (
         <div>
-          <p>회원정보 상세</p>
           <InformationOfSelectedUser user={user} deleteUser={deleteUser} />
           <ChildrenListOfSelectedUser userChildren={userChildren} />
           <UserReviewsListOfSelectedUser userReviews={userReviews} />
