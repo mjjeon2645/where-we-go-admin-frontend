@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { placeApiService } from '../services/PlaceApiService';
 import { fullAddressFormater } from '../utils/addressFormatter';
 import Store from './Store';

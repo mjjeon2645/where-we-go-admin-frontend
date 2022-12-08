@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from 'usehooks-ts';
 import LoginForm from '../components/LoginForm';
@@ -17,9 +16,7 @@ export default function LoginPage() {
     setAccessToken('');
   }, []);
 
-  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
-
-  const onSubmit = async (data) => {
+  const submit = async (data) => {
     const { adminId, password } = data;
     const accessToken = await adminStore.adminLogin({ id: adminId, password });
 
@@ -39,10 +36,7 @@ export default function LoginPage() {
   return (
     <div>
       <LoginForm
-        onSubmit={onSubmit}
-        register={register}
-        handleSubmit={handleSubmit}
-        errors={errors}
+        submit={submit}
         errorMessage={errorMessage}
         goSignUp={goSignUp}
       />

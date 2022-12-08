@@ -8,7 +8,7 @@ const Wrapper = styled.article`
   margin-bottom: 3em;
 `;
 
-const UserId = styled.section`
+const Section = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,76 +24,12 @@ const UserId = styled.section`
   }
 `;
 
-const Nickname = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-block: 1.2em;
-  border-top: 1px solid #EEE;
-
-  p:first-child {
-    font-weight: bold;
-  }
-
-  p:last-child {
-    color: #6c6c6c;
-  }
-`;
-
-const Email = styled.section`
+const LastSection = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-block: 1.2em;
   border-block: 1px solid #EEE;
-
-  p:first-child {
-    font-weight: bold;
-  }
-
-  p:last-child {
-    color: #6c6c6c;
-  }
-`;
-
-const SocialLoginId = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-block: 1.2em;
-  border-bottom: 1px solid #EEE;
-
-  p:first-child {
-    font-weight: bold;
-  }
-
-  p:last-child {
-    color: #6c6c6c;
-  }  
-`;
-
-const CreatedAt = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-block: 1.2em;
-  border-bottom: 1px solid #EEE;
-
-  p:first-child {
-    font-weight: bold;
-  }
-
-  p:last-child {
-    color: #6c6c6c;
-  }  
-`;
-
-const AuthBy = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-block: 1.2em;
-  border-bottom: 1px solid #EEE;
 
   p:first-child {
     font-weight: bold;
@@ -125,36 +61,36 @@ export default function InformationOfSelectedUser({ user, deleteUser }) {
 
   return (
     <div>
-      {Object.keys(user) ? (
+      {Object.keys(user).length !== 0 ? (
         <Wrapper>
-          <UserId>
+          <Section>
             <p>사용자 고유번호</p>
             <p>{user.id}</p>
-          </UserId>
-          <Nickname>
+          </Section>
+          <Section>
             <p>닉네임</p>
             <p>{user.nickname}</p>
-          </Nickname>
-          <Email>
+          </Section>
+          <Section>
             <p>이메일</p>
             <p>{user.email}</p>
-          </Email>
-          <SocialLoginId>
+          </Section>
+          <Section>
             <p>소셜 로그인 아이디</p>
             <p>{user.socialLoginId}</p>
-          </SocialLoginId>
-          <CreatedAt>
+          </Section>
+          <Section>
             <p>회원가입 일자</p>
             <p>{dateFormatter(user.createdAt)}</p>
-          </CreatedAt>
-          <AuthBy>
+          </Section>
+          <Section>
             <p>인증 방식</p>
             <p>{user.authBy}</p>
-          </AuthBy>
-          <AuthBy>
+          </Section>
+          <LastSection>
             <p>가입 상태</p>
             <p>{signUpStateFormatter(user.state)}</p>
-          </AuthBy>
+          </LastSection>
           <DeleteButton>
             <button type="button" onClick={() => handleDeleteUserClick(user.id)}>회원 삭제</button>
           </DeleteButton>

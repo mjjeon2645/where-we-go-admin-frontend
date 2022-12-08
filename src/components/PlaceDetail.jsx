@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { placeServicesFormatter } from '../utils/placeServicesFormatter';
 
 const Field = styled.section`
@@ -91,7 +92,7 @@ export default function PlaceDetail({ selectedPlace, deletePlace, goPrevPage }) 
 
   return (
     <div>
-      {Object.keys(selectedPlace).length ? (
+      {Object.keys(selectedPlace).length !== 0 ? (
         <div>
           <Field>
             <p>장소 고유번호</p>

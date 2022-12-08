@@ -2,7 +2,10 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/jsx-props-no-spreading */
 
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import usePlaceStore from '../hooks/usePlaceStore';
+import { sidoFormatter } from '../utils/addressFormatter';
 import Postcode from './Postcode';
 
 const Container = styled.div`
@@ -17,14 +20,6 @@ const Field = styled.div`
 const RadioButtonField = styled.div`
   margin-bottom: 2em;
   width: 40%;
-
-  /* p {
-    font-size: .9em;
-    color: #A0A0A0;
-    display: block;
-    text-align: left;
-    margin-bottom: .5em;
-  } */
 
   label {
     font-size: .8em;
@@ -104,10 +99,13 @@ const Error = styled.p`
 
 export default function NewPlaceForm({
   uploadFirstImage, firstImageUrl, uploadSecondImage, secondImageUrl,
-  uploadThirdImage, thirdImageUrl, errors, register, handleSubmit, submit,
-  changeRoadAddress, changeJibunAddress, changeSido, changeSigungu, changeLatitude,
-  changeLongitude, goPrevPage, isMissingAddress, isMissingCategory, errorMessage,
+  uploadThirdImage, thirdImageUrl, submit, goPrevPage,
+  isMissingAddress, isMissingCategory, errorMessage,
 }) {
+  const placeStore = usePlaceStore();
+
+  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
+
   const handleFirstImageChange = (event) => {
     uploadFirstImage(event);
   };
@@ -120,13 +118,42 @@ export default function NewPlaceForm({
     uploadThirdImage(event);
   };
 
+  const onSubmit = async (data) => {
+    submit(data);
+  };
+
   const handleGoPrevPageClick = () => {
     goPrevPage();
   };
 
+  const changeRoadAddress = (address) => {
+    placeStore.setRoadAddress(address);
+  };
+
+  const changeJibunAddress = (address) => {
+    placeStore.setJibunAddress(address);
+  };
+
+  const changeSido = (sido) => {
+    const changedSido = sidoFormatter(sido);
+    placeStore.setSido(changedSido);
+  };
+
+  const changeSigungu = (sigungu) => {
+    placeStore.setSigungu(sigungu);
+  };
+
+  const changeLatitude = (latitude) => {
+    placeStore.setLatitude(latitude);
+  };
+
+  const changeLongitude = (longitude) => {
+    placeStore.setLongitude(longitude);
+  };
+
   return (
     <Container>
-      <form onSubmit={handleSubmit(submit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Field>
           <Label htmlFor="place-name">장소명: </Label>
           <Input
