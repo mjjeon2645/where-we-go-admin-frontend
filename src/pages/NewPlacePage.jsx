@@ -1,9 +1,7 @@
-import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import NewPlaceForm from '../components/NewPlaceForm';
 import usePlaceStore from '../hooks/usePlaceStore';
-import { sidoFormatter } from '../utils/addressFormatter';
 
 const Container = styled.div`
   padding: 5em 2em;
@@ -23,8 +21,6 @@ export default function NewPlacePage() {
   } = placeStore;
 
   const navigate = useNavigate();
-
-  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
 
   const uploadFirstImage = async (event) => {
     const imageFile = event.target.files[0];
@@ -54,31 +50,6 @@ export default function NewPlacePage() {
     navigate('/places');
   };
 
-  const changeRoadAddress = (address) => {
-    placeStore.setRoadAddress(address);
-  };
-
-  const changeJibunAddress = (address) => {
-    placeStore.setJibunAddress(address);
-  };
-
-  const changeSido = (sido) => {
-    const changedSido = sidoFormatter(sido);
-    placeStore.setSido(changedSido);
-  };
-
-  const changeSigungu = (sigungu) => {
-    placeStore.setSigungu(sigungu);
-  };
-
-  const changeLatitude = (latitude) => {
-    placeStore.setLatitude(latitude);
-  };
-
-  const changeLongitude = (longitude) => {
-    placeStore.setLongitude(longitude);
-  };
-
   const goPrevPage = () => {
     placeStore.clearAddPlaceState();
     navigate(-1);
@@ -100,16 +71,7 @@ export default function NewPlacePage() {
         secondImageUrl={secondImageUrl}
         uploadThirdImage={uploadThirdImage}
         thirdImageUrl={thirdImageUrl}
-        errors={errors}
-        register={register}
-        handleSubmit={handleSubmit}
         submit={submit}
-        changeRoadAddress={changeRoadAddress}
-        changeJibunAddress={changeJibunAddress}
-        changeSido={changeSido}
-        changeSigungu={changeSigungu}
-        changeLatitude={changeLatitude}
-        changeLongitude={changeLongitude}
         goPrevPage={goPrevPage}
         isMissingAddress={isMissingAddress}
         isMissingCategory={isMissingCategory}

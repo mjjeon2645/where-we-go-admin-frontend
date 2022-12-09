@@ -1,12 +1,7 @@
-import styled from 'styled-components';
-import BookmarksListOfSelectedUser from './BookmarksListOfSelectedUser';
-import ChildrenListOfSelectedUser from './ChildrenListOfSelectedUser';
 import InformationOfSelectedUser from './InformationOfSelectedUser';
+import ChildrenListOfSelectedUser from './ChildrenListOfSelectedUser';
 import UserReviewsListOfSelectedUser from './UserReviewsListOfSelectedUser';
-
-const Container = styled.div`
-    /* padding: 3em; */
-`;
+import BookmarksListOfSelectedUser from './BookmarksListOfSelectedUser';
 
 export default function UserDetail({
   user, userChildren, bookmarks, userReviews, deleteSelectedUser,
@@ -14,9 +9,10 @@ export default function UserDetail({
   const deleteUser = (userId) => {
     deleteSelectedUser(userId);
   };
+
   return (
-    <Container>
-      {Object.keys(user).length ? (
+    <div>
+      {Object.keys(user).length !== 0 ? (
         <div>
           <InformationOfSelectedUser user={user} deleteUser={deleteUser} />
           <ChildrenListOfSelectedUser userChildren={userChildren} />
@@ -26,6 +22,6 @@ export default function UserDetail({
       ) : (
         <div>now loading...</div>
       )}
-    </Container>
+    </div>
   );
 }

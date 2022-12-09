@@ -30,6 +30,14 @@ const Content = styled.div`
     }
 `;
 
+const Reason = styled.label`
+  display: block;
+`;
+
+const Password = styled.label`
+  display: block;
+`;
+
 const TextField = styled.textarea`
     width: 300px;
     height: 80px;
@@ -111,13 +119,15 @@ export default function DeleteReviewModal({
           {' '}
           {today}
         </p>
-        <p>사유:</p>
+        <Reason htmlFor="reason">사유:</Reason>
         <TextField
+          id="reason"
           type="text"
           onChange={handleDeleteReasonChange}
         />
-        <p>비밀번호:</p>
+        <Password htmlFor="admin-password">비밀번호:</Password>
         <input
+          id="admin-password"
           type="password"
           onChange={handleAdminPasswordChange}
         />

@@ -1,12 +1,14 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-props-no-spreading */
+import { useForm } from 'react-hook-form';
+
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
- width: 100%;
- text-align: center;
- padding-inline: calc((100% - 400px) / 2);
- margin-top: 10em;
+  width: 100%;
+  text-align: center;
+  padding-inline: calc((100% - 400px) / 2);
+  margin-top: 10em;
 `;
 
 const Title = styled.h2`
@@ -19,19 +21,19 @@ const Title = styled.h2`
 `;
 
 const Input = styled.input`
-    display: block;
-    width: 100%;
-    padding-block: 1em;
-    padding-inline: 1em;
-    margin-bottom: .7em;
+  display: block;
+  width: 100%;
+  padding-block: 1em;
+  padding-inline: 1em;
+  margin-bottom: .7em;
 
-    ::placeholder {
-      color: #CBCBCB;
-    }
+  ::placeholder {
+    color: #CBCBCB;
+  }
 
-    :focus {
+  :focus {
     outline: 1px solid #1D5C84;
-    }
+  }
 `;
 
 const Error = styled.p`
@@ -58,10 +60,16 @@ const SignUp = styled.button`
 `;
 
 export default function LoginForm({
-  onSubmit, register, handleSubmit, errors, errorMessage, goSignUp,
+  submit, errorMessage, goSignUp,
 }) {
+  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
+
   const handleSignUpClick = () => {
     goSignUp();
+  };
+
+  const onSubmit = async (data) => {
+    submit(data);
   };
 
   return (

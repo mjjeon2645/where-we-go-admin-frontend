@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-const Container = styled.div`
-    /* padding: 3em; */
-`;
-
 const SubFunction = styled.div`
   display: flex;
   justify-content: space-between;
@@ -77,7 +73,7 @@ export default function PlacesList({ places, goAddPlacePage, goPlaceDetailPage }
   };
 
   return (
-    <Container>
+    <article>
       {places.length ? (
         <div>
           <SubFunction>
@@ -122,6 +118,6 @@ export default function PlacesList({ places, goAddPlacePage, goPlaceDetailPage }
       ) : (
         <p>등록된 장소가 없습니다.</p>
       )}
-    </Container>
+    </article>
   );
 }

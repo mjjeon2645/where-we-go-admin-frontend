@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useState } from 'react';
-import { useDaumPostcodePopup } from 'react-daum-postcode';
+
 import styled from 'styled-components';
+import { useDaumPostcodePopup } from 'react-daum-postcode';
 
 const { kakao } = window;
 

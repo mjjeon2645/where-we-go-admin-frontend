@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { dateFormatter } from '../utils/dateFormatter';
 
 const Container = styled.div`
@@ -89,7 +90,7 @@ export default function UserReviewsListOfSelectedUser({ userReviews }) {
           </tbody>
         </Table>
       ) : (
-        <p>등록한 리뷰가 없습니다.</p>
+        <p>작성한 리뷰가 없습니다.</p>
       )}
     </Container>
   );
