@@ -1,4 +1,3 @@
-import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import SignUpForm from '../components/SignUpForm';
 import useAdminStore from '../hooks/useAdminStore';
@@ -12,10 +11,6 @@ export default function SignUpPage() {
     isAdminAlreadyExist, isAdminIdDuplicated, errorMessage, profileImageUrl,
   } = adminStore;
 
-  const {
-    register, watch, handleSubmit, formState: { errors },
-  } = useForm({ reValidateMode: 'onSubmit' });
-
   const goPrevPage = () => {
     navigate(-1);
   };
@@ -26,7 +21,7 @@ export default function SignUpPage() {
     await adminStore.uploadProfileImage(imageFile);
   };
 
-  const onSubmit = async (data) => {
+  const submit = async (data) => {
     // adminStore.signUpState = '';
 
     const {
@@ -55,11 +50,7 @@ export default function SignUpPage() {
   return (
     <div>
       <SignUpForm
-        register={register}
-        watch={watch}
-        handleSubmit={handleSubmit}
-        errors={errors}
-        onSubmit={onSubmit}
+        submit={submit}
         isAdminAlreadyExist={isAdminAlreadyExist}
         isAdminIdDuplicated={isAdminIdDuplicated}
         errorMessage={errorMessage}

@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+
 import PlaceDetail from './PlaceDetail';
 
 const context = describe;

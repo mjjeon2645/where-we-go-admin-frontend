@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { dateFormatter } from '../utils/dateFormatter';
 
 const Container = styled.div`
@@ -10,7 +11,7 @@ const Wrapper = styled.article`
   margin-bottom: 3em;
 `;
 
-const ReviewId = styled.section`
+const Section = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -26,87 +27,7 @@ const ReviewId = styled.section`
   }
 `;
 
-const Nickname = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-block: 1.2em;
-  border-top: 1px solid #EEE;
-
-  p:first-child {
-    font-weight: bold;
-  }
-
-  p:last-child {
-    color: #6c6c6c;
-  }
-`;
-
-const DateOfWritten = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-block: 1.2em;
-  border-top: 1px solid #EEE;
-
-  p:first-child {
-    font-weight: bold;
-  }
-
-  p:last-child {
-    color: #6c6c6c;
-  }
-`;
-
-const DateOfVisit = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-block: 1.2em;
-  border-top: 1px solid #EEE;
-
-  p:first-child {
-    font-weight: bold;
-  }
-
-  p:last-child {
-    color: #6c6c6c;
-  }
-`;
-
-const PlaceName = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-block: 1.2em;
-  border-top: 1px solid #EEE;
-
-  p:first-child {
-    font-weight: bold;
-  }
-
-  p:last-child {
-    color: #6c6c6c;
-  }  
-`;
-
-const Rate = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-block: 1.2em;
-  border-top: 1px solid #EEE;
-
-  p:first-child {
-    font-weight: bold;
-  }
-
-  p:last-child {
-    color: #6c6c6c;
-  }
-`;
-
-const Body = styled.section`
+const LastSection = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -156,37 +77,37 @@ export default function UserReviewDetail({ userReview, toggleModal, goToPrevPage
 
   return (
     <Container>
-      {Object.keys(userReview).length ? (
+      {Object.keys(userReview).length !== 0 ? (
         <div>
           <Wrapper>
-            <ReviewId>
+            <Section>
               <p>리뷰 고유번호</p>
               <p>{userReview.id}</p>
-            </ReviewId>
-            <Nickname>
+            </Section>
+            <Section>
               <p>작성자 닉네임</p>
               <p>{userReview.nickname}</p>
-            </Nickname>
-            <DateOfWritten>
+            </Section>
+            <Section>
               <p>작성일</p>
               <p>{dateFormatter(userReview.createdAt)}</p>
-            </DateOfWritten>
-            <DateOfVisit>
+            </Section>
+            <Section>
               <p>방문일</p>
               <p>{dateFormatter(userReview.dateOfVisit)}</p>
-            </DateOfVisit>
-            <PlaceName>
+            </Section>
+            <Section>
               <p>방문 장소</p>
               <p>{userReview.placeName}</p>
-            </PlaceName>
-            <Rate>
+            </Section>
+            <Section>
               <p>평점</p>
               <p>{userReview.rate}</p>
-            </Rate>
-            <Body>
+            </Section>
+            <LastSection>
               <p>내용</p>
               <p>{userReview.body}</p>
-            </Body>
+            </LastSection>
             <Buttons>
               <DeleteButton type="button" onClick={handleOpenModalClick}>삭제하기</DeleteButton>
               <BackButton type="button" onClick={handlePageBackClick}>뒤로가기</BackButton>

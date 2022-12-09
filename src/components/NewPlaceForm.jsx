@@ -3,10 +3,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
 import { useForm } from 'react-hook-form';
+
 import styled from 'styled-components';
-import usePlaceStore from '../hooks/usePlaceStore';
-import { sidoFormatter } from '../utils/addressFormatter';
 import Postcode from './Postcode';
+
+import usePlaceStore from '../hooks/usePlaceStore';
+
+import { sidoFormatter } from '../utils/addressFormatter';
 
 const Container = styled.div`
   margin-top: 4em;
@@ -106,6 +109,10 @@ export default function NewPlaceForm({
 
   const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
 
+  const onSubmit = async (data) => {
+    submit(data);
+  };
+
   const handleFirstImageChange = (event) => {
     uploadFirstImage(event);
   };
@@ -116,10 +123,6 @@ export default function NewPlaceForm({
 
   const handleThirdImageChange = (event) => {
     uploadThirdImage(event);
-  };
-
-  const onSubmit = async (data) => {
-    submit(data);
   };
 
   const handleGoPrevPageClick = () => {

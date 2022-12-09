@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { dateFormatter } from '../utils/dateFormatter';
 
 const Container = styled.div`
@@ -101,7 +102,7 @@ export default function UserReviewsList({
                   <td>{review.rate}</td>
                   <td>
                     <button type="button" onClick={() => handlePlaceDetailClick(review.placeId)}>
-                      이름입니다
+                      {review.placeName}
                     </button>
                   </td>
                 </tr>

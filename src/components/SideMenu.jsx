@@ -1,10 +1,12 @@
 /* eslint-disable no-nested-ternary */
+import { useEffect } from 'react';
+
+import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLocalStorage } from 'usehooks-ts';
 
-import styled from 'styled-components';
-import { useEffect } from 'react';
 import useAdminStore from '../hooks/useAdminStore';
+
 import { adminApiService } from '../services/AdminApiService';
 
 const ProfileSection = styled.div`
@@ -94,7 +96,7 @@ export default function SideMenu() {
 
   return (
     <div>
-      {Object.keys(admin).length ? (
+      {Object.keys(admin).length !== 0 ? (
         <div>
           <ProfileSection>
             <ProfileImage src={admin.profileImage} alt="" />

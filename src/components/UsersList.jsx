@@ -1,9 +1,6 @@
 import styled from 'styled-components';
-import { dateFormatter } from '../utils/dateFormatter';
 
-const Container = styled.div`
-  /* padding: 5em; */
-`;
+import { dateFormatter } from '../utils/dateFormatter';
 
 const Total = styled.div`
   text-align: right;
@@ -69,7 +66,7 @@ export default function UsersList({ users, goUserDetailPage }) {
   };
 
   return (
-    <Container>
+    <article>
       {users.length ? (
         <div>
           <Total>
@@ -113,6 +110,6 @@ export default function UsersList({ users, goUserDetailPage }) {
       ) : (
         <p>등록된 유저가 없습니다.</p>
       )}
-    </Container>
+    </article>
   );
 }

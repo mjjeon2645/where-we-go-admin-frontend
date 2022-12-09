@@ -1,6 +1,8 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-nested-ternary */
+import { useForm } from 'react-hook-form';
+
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -49,20 +51,12 @@ const Message = styled.p`
 `;
 
 const Error = styled.p`
-  font-size: 0.9em;
+  font-size: .9em;
   text-align: left;
   color: #ff0000;
 `;
 
-const Signup = styled.button`
-  border: none;
-  border-radius: 4px;
-  width: 100%;
-  padding: 1.2em 2.8em;
-  margin-top: 1em;
-`;
-
-const Cancel = styled.button`
+const Button = styled.button`
   border: none;
   border-radius: 4px;
   width: 100%;
@@ -71,9 +65,17 @@ const Cancel = styled.button`
 `;
 
 export default function SignUpForm({
-  register, watch, handleSubmit, errors, onSubmit, isAdminAlreadyExist,
-  isAdminIdDuplicated, errorMessage, goPrevPage, uploadProfileImage, profileImageUrl,
+  submit, isAdminAlreadyExist, isAdminIdDuplicated, errorMessage,
+  goPrevPage, uploadProfileImage, profileImageUrl,
 }) {
+  const {
+    register, watch, handleSubmit, formState: { errors },
+  } = useForm({ reValidateMode: 'onSubmit' });
+
+  const onSubmit = async (data) => {
+    await submit(data);
+  };
+
   const handleCancelClick = () => {
     goPrevPage();
   };
@@ -190,7 +192,7 @@ export default function SignUpForm({
               : (<Error>비밀번호가 일치하지 않습니다</Error>)) : null}
         </Field>
         <Field>
-          <label htmlFor="profile-image">프로필 이미지: </label>
+          <label htmlFor="profile-image">프로필 이미지</label>
           <input
             {...register(
               'profileImage',
@@ -201,16 +203,16 @@ export default function SignUpForm({
             error={errors.profileImage}
             type="file"
             accept="image/*"
-            id="first-image"
+            id="profile-image"
             onChange={handleProfileImageChange}
           />
           <img src={profileImageUrl} alt="" />
-          {errors.firstImage && (
-            <Error>{errors.firstImage.message}</Error>
+          {errors.profileImage && (
+            <Error>{errors.profileImage.message}</Error>
           )}
         </Field>
-        <Signup type="submit">어드민 계정 생성하기</Signup>
-        <Cancel type="button" onClick={handleCancelClick}>취소</Cancel>
+        <Button type="submit">어드민 계정 생성하기</Button>
+        <Button type="button" onClick={handleCancelClick}>취소</Button>
       </form>
     </Wrapper>
   );
