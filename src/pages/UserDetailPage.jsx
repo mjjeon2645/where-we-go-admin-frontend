@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
 import UserDetail from '../components/UserDetail';
+
 import useUserStore from '../hooks/useUserStore';
 import useUserReviewStore from '../hooks/useUserReviewStore';
 

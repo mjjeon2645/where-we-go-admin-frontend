@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
+
 import SignUpForm from '../components/SignUpForm';
+
 import useAdminStore from '../hooks/useAdminStore';
 
 export default function SignUpPage() {

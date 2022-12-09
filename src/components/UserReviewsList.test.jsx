@@ -22,15 +22,37 @@ describe('UserReviewsList', () => {
   context('a manager accesses user reviews list page', () => {
     allUserReviews = [
       {
-        id: 100, createdAt: '2022-12-05T23:36:33.066172', nickname: '네이버룽룽', body: '네이버룽룽바디다!!', rate: 3, userId: 200, placeId: 300, placeName: '준형이네',
+        id: 100,
+        createdAt: '2022-12-05T23:36:33.066172',
+        nickname: '네이버룽룽',
+        body: '네이버룽룽바디다!!',
+        rate: 3,
+        userId: 200,
+        placeId: 300,
+        placeName: '준형이네',
       },
       {
-        id: 101, createdAt: '2022-12-06T23:36:33.066172', nickname: '카카오룽룽', body: '카카오룽룽바디다!!', rate: 4, userId: 201, placeId: 305, placeName: '승준이네',
+        id: 101,
+        createdAt: '2022-12-06T23:36:33.066172',
+        nickname: '카카오룽룽',
+        body: '카카오룽룽바디다!!',
+        rate: 4,
+        userId: 201,
+        placeId: 305,
+        placeName: '승준이네',
       },
       {
-        id: 102, createdAt: '2022-12-07T23:36:33.066172', nickname: '다음룽룽', body: '다음룽룽바디다!!', rate: 5, userId: 202, placeId: 305, placeName: '승준이네',
+        id: 102,
+        createdAt: '2022-12-07T23:36:33.066172',
+        nickname: '다음룽룽',
+        body: '다음룽룽바디다!!',
+        rate: 5,
+        userId: 202,
+        placeId: 305,
+        placeName: '승준이네',
       },
     ];
+
     it('renders user reviews list', () => {
       renderUserReviewsList();
 
