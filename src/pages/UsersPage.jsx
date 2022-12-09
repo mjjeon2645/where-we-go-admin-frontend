@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
 import UsersList from '../components/UsersList';
+
 import useUserStore from '../hooks/useUserStore';
 
 const Container = styled.div`

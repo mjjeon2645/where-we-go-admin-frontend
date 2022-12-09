@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
 import DeleteReviewModal from '../components/DeleteReviewModal';
 import UserReviewDetail from '../components/UserReviewDetail';
+
 import useUserReviewStore from '../hooks/useUserReviewStore';
 import useAdminStore from '../hooks/useAdminStore';
 
@@ -17,12 +20,15 @@ const Title = styled.h2`
 
 export default function UserReviewDetailPage() {
   const [isOpen, setIsOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const userReviewStore = useUserReviewStore();
   const adminStore = useAdminStore();
+
   const { userReview, errorMessage } = userReviewStore;
   const { adminId, employeeIdentificationNumber } = adminStore;
+
   const id = document.location.pathname.split('/')[2];
 
   useEffect(() => {
@@ -58,6 +64,8 @@ export default function UserReviewDetailPage() {
   const setAdminPassword = (text) => {
     userReviewStore.setAdminPassword(text);
   };
+
+  console.log(userReview);
 
   return (
     <Container>
