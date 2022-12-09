@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
 import PlacesList from '../components/PlacesList';
+
 import usePlaceStore from '../hooks/usePlaceStore';
 
 const Container = styled.div`
