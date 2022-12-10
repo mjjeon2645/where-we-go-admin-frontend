@@ -23,7 +23,7 @@ export default function PlacesPage() {
 
   const { places } = placeStore;
 
-  async function renderPlacePage() {
+  async function renderPlacesPage() {
     const response = await placeStore.fetchPlaces();
 
     if (!response) {
@@ -32,7 +32,7 @@ export default function PlacesPage() {
   }
 
   useEffect(() => {
-    renderPlacePage();
+    renderPlacesPage();
   }, []);
 
   const goPlaceDetailPage = (id) => {

@@ -6,6 +6,14 @@ import config from '../config';
 const baseUrl = config.apiBaseUrl;
 
 export default class UserApiService {
+  constructor() {
+    this.accessToken = '';
+  }
+
+  setAccessToken(accessToken) {
+    this.accessToken = accessToken;
+  }
+
   async fetchAllUsers() {
     const url = `${baseUrl}/admin-users`;
     const { data } = await axios.get(url, {
@@ -19,7 +27,11 @@ export default class UserApiService {
 
   async fetchSelectedUser(id) {
     const url = `${baseUrl}/admin-users/${id}`;
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
 
     return data;
   }

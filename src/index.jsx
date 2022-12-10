@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { adminApiService } from './services/AdminApiService';
 import { placeApiService } from './services/PlaceApiService';
+import { userApiService } from './services/UserApiService';
 import { userReviewApiService } from './services/UserReviewApiService';
 
 const container = document.getElementById('app');
@@ -15,6 +16,7 @@ const accessToken = JSON.parse(data);
 adminApiService.setAccessToken(accessToken);
 userReviewApiService.setAccessToken(accessToken);
 placeApiService.setAccessToken(accessToken);
+userApiService.setAccessToken(accessToken);
 
 root.render((
   <BrowserRouter>

@@ -60,6 +60,10 @@ const AuthBy = styled.th`
   width: 10%;
 `;
 
+const NoUsers = styled.p`
+  margin-top: 3em;
+`;
+
 export default function UsersList({ users, goUserDetailPage }) {
   const handleUserDetailClick = (userId) => {
     goUserDetailPage(userId);
@@ -108,7 +112,7 @@ export default function UsersList({ users, goUserDetailPage }) {
           </Table>
         </div>
       ) : (
-        <p>등록된 유저가 없습니다.</p>
+        <NoUsers>등록된 유저가 없습니다.</NoUsers>
       )}
     </article>
   );

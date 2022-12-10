@@ -17,15 +17,44 @@ export default class UserReviewStore extends Store {
   }
 
   async fetchAllUserReviews() {
-    const allUserReviews = await userReviewApiService.fetchAllUserReviews();
-    this.allUserReviews = allUserReviews;
-    this.publish();
+    try {
+      const allUserReviews = await userReviewApiService.fetchAllUserReviews();
+      this.allUserReviews = allUserReviews;
+      this.publish();
+
+      return allUserReviews;
+    } catch (error) {
+      const { message } = error.response.data;
+
+      this.errorMessage = message;
+
+      if (message.startsWith('Missing') || message.startsWith('접근')) {
+        return 'authentication error';
+      }
+
+      return '';
+    }
   }
 
   async fetchSelectedReview(id) {
-    const userReview = await userReviewApiService.selectedUserReview(id);
-    this.userReview = userReview;
-    this.publish();
+    try {
+      const userReview = await userReviewApiService.selectedUserReview(id);
+      this.userReview = userReview;
+      this.publish();
+
+      return userReview;
+    } catch (error) {
+      const { message } = error.response.data;
+
+      this.errorMessage = message;
+      this.publish();
+
+      if (message.startsWith('Missing') || message.startsWith('접근')) {
+        return 'authentication error';
+      }
+
+      return '';
+    }
   }
 
   async deleteReview(id) {

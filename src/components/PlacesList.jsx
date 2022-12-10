@@ -64,6 +64,10 @@ const Category = styled.th`
   width: 10%;
 `;
 
+const NoPlaces = styled.p`
+  margin-top: 3em;
+`;
+
 export default function PlacesList({ places, goAddPlacePage, goPlaceDetailPage }) {
   const handleAddPlaceClick = () => {
     goAddPlacePage();
@@ -116,7 +120,7 @@ export default function PlacesList({ places, goAddPlacePage, goPlaceDetailPage }
           </Table>
         </div>
       ) : (
-        <p>등록된 장소가 없습니다.</p>
+        <NoPlaces>등록된 장소가 없습니다.</NoPlaces>
       )}
     </article>
   );

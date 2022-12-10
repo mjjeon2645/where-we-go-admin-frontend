@@ -23,8 +23,16 @@ export default function UsersPage() {
 
   const { users } = userStore;
 
+  async function renderUserPage() {
+    const response = await userStore.fetchAllUsers();
+
+    if (!response) {
+      navigate('/auth-error');
+    }
+  }
+
   useEffect(() => {
-    userStore.fetchAllUsers();
+    renderUserPage();
   }, []);
 
   const goUserDetailPage = (id) => {

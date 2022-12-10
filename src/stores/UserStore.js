@@ -11,24 +11,48 @@ export default class UserStore extends Store {
     this.user = {};
     this.children = [];
     this.bookmarks = [];
+
+    this.errorMessage = '';
   }
 
   async fetchAllUsers() {
-    const users = await userApiService.fetchAllUsers();
-    this.users = users;
-    this.publish();
+    try {
+      const users = await userApiService.fetchAllUsers();
+      this.users = users;
+      this.publish();
+
+      return users;
+    } catch (error) {
+      const { message } = error.response.data;
+      this.errorMessage = message;
+
+      return '';
+    }
   }
 
   async fetchSelectedUser(id) {
-    const {
-      bookmarkedPlaces, children, userDto: user,
-    } = await userApiService.fetchSelectedUser(id);
+    try {
+      const {
+        bookmarkedPlaces, children, userDto: user,
+      } = await userApiService.fetchSelectedUser(id);
 
-    this.user = user;
-    this.children = children;
-    this.bookmarks = bookmarkedPlaces;
+      this.user = user;
+      this.children = children;
+      this.bookmarks = bookmarkedPlaces;
 
-    this.publish();
+      this.publish();
+
+      return bookmarkedPlaces;
+    } catch (error) {
+      const { message } = error.response.data;
+      this.errorMessage = message;
+
+      if (message.startsWith('Missing') || message.startsWith('접근')) {
+        return 'authentication error';
+      }
+
+      return '';
+    }
   }
 
   async deleteSelectedUser(userId) {

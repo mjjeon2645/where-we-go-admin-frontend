@@ -25,9 +25,17 @@ export default function UserDetailPage() {
   const { userReviewsFoundByUserId } = userReviewStore;
   const id = document.location.pathname.split('/')[2];
 
+  async function renderUserDetailPage() {
+    const response = await userStore.fetchSelectedUser(id);
+    await userReviewStore.fetchAllReviewsByUserId(id);
+
+    if (response === 'authentication error') {
+      navigate('/auth-error');
+    }
+  }
+
   useEffect(() => {
-    userStore.fetchSelectedUser(id);
-    userReviewStore.fetchAllReviewsByUserId(id);
+    renderUserDetailPage();
   }, []);
 
   const deleteSelectedUser = async (userId) => {

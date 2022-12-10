@@ -29,7 +29,7 @@ export default function PlaceDetailPage() {
   async function test() {
     const response = await placeStore.fetchSelectedPlace(placeId);
 
-    if (!response && errorMessage.startsWith('Missing')) {
+    if (response === 'authentication error') {
       navigate('/auth-error');
     }
   }

@@ -9,9 +9,9 @@ export function todayFormatter(today) {
 
   const rawDate = today.getDate();
 
-  const date = rawDate.length === 2 ? rawDate : `0${rawDate}`;
+  // const date = rawDate.length === 2 ? rawDate : `0${rawDate}`;
 
-  return `${year}-${month}-${date}`;
+  return `${year}-${month}-${rawDate}`;
 }
 
 // TODO: Delete This!

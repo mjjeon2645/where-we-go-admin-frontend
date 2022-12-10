@@ -35,9 +35,6 @@ export default class PlaceStore extends Store {
 
       return places;
     } catch (error) {
-      // const { message } = error.response.data;
-      // this.publish();
-
       return '';
     }
   }
@@ -53,6 +50,10 @@ export default class PlaceStore extends Store {
       const { message } = error.response.data;
       this.errorMessage = message;
       this.publish();
+
+      if (message.startsWith('Missing') || message.startsWith('접근')) {
+        return 'authentication error';
+      }
 
       return '';
     }
