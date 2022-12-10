@@ -15,6 +15,14 @@ module.exports = function () {
       this.amOnPage(`${backdoorBaseUrl}/setup-five-places`);
     },
 
+    setupNoUser() {
+      this.amOnPage(`${backdoorBaseUrl}/setup-no-user`);
+    },
+
+    setupTwoUsers() {
+      this.amOnPage(`${backdoorBaseUrl}/setup-two-users`);
+    },
+
     // login
     login() {
       this.amOnPage(`${backdoorBaseUrl}/setup-admin`);
