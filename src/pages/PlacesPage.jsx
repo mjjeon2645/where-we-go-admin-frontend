@@ -23,8 +23,16 @@ export default function PlacesPage() {
 
   const { places } = placeStore;
 
+  async function renderPlacesPage() {
+    const response = await placeStore.fetchPlaces();
+
+    if (!response) {
+      navigate('/auth-error');
+    }
+  }
+
   useEffect(() => {
-    placeStore.fetchPlaces();
+    renderPlacesPage();
   }, []);
 
   const goPlaceDetailPage = (id) => {

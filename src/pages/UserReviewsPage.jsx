@@ -23,8 +23,15 @@ export default function UserReviewsPage() {
 
   const { allUserReviews } = userReviewStore;
 
+  async function renderUserReviewPage() {
+    const response = await userReviewStore.fetchAllUserReviews();
+
+    if (response === 'authentication error') {
+      navigate('/auth-error');
+    }
+  }
   useEffect(() => {
-    userReviewStore.fetchAllUserReviews();
+    renderUserReviewPage();
   }, []);
 
   const selectedUserDetailPage = (id) => {

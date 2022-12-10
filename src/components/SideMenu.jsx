@@ -8,6 +8,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import useAdminStore from '../hooks/useAdminStore';
 
 import { adminApiService } from '../services/AdminApiService';
+import { placeApiService } from '../services/PlaceApiService';
 
 const ProfileSection = styled.div`
   margin-bottom: 30px;
@@ -82,9 +83,11 @@ export default function SideMenu() {
 
   const navigate = useNavigate();
 
+  // TODO. UI 최상단에서 apiService 노출이 적절치 않아보임. 리팩터링 필요
   useEffect(() => {
     if (accessToken) {
       adminApiService.setAccessToken(accessToken);
+      placeApiService.setAccessToken(accessToken);
       adminStore.fetchAdmin();
     }
   }, [accessToken]);

@@ -16,14 +16,22 @@ export default class UserReviewApiService {
 
   async fetchAllUserReviews() {
     const url = `${baseUrl}/admin-user-reviews`;
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
 
     return data.userReviews;
   }
 
   async selectedUserReview(reviewId) {
     const url = `${baseUrl}/admin-user-reviews/${reviewId}`;
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
 
     return data;
   }

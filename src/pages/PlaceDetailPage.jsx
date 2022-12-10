@@ -22,13 +22,21 @@ export default function PlaceDetailPage() {
 
   const placeStore = usePlaceStore();
 
-  const { selectedPlace } = placeStore;
+  const { selectedPlace, errorMessage } = placeStore;
 
   const placeId = document.location.pathname.split('/')[2];
 
+  async function test() {
+    const response = await placeStore.fetchSelectedPlace(placeId);
+
+    if (response === 'authentication error') {
+      navigate('/auth-error');
+    }
+  }
+
   useEffect(() => {
-    placeStore.fetchSelectedPlace(placeId);
-  }, []);
+    test();
+  }, [errorMessage]);
 
   const deletePlace = async (id) => {
     await placeStore.deletePlace(id);

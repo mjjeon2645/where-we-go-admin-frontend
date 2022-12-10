@@ -31,9 +31,17 @@ export default function UserReviewDetailPage() {
 
   const id = document.location.pathname.split('/')[2];
 
+  async function renderUserReviewDetailPage() {
+    const response = await userReviewStore.fetchSelectedReview(id);
+    await adminStore.fetchAdmin();
+
+    if (response === 'authentication error') {
+      navigate('/auth-error');
+    }
+  }
+
   useEffect(() => {
-    userReviewStore.fetchSelectedReview(id);
-    adminStore.fetchAdmin();
+    renderUserReviewDetailPage();
   }, []);
 
   const toggleModal = () => {
@@ -64,8 +72,6 @@ export default function UserReviewDetailPage() {
   const setAdminPassword = (text) => {
     userReviewStore.setAdminPassword(text);
   };
-
-  console.log(userReview);
 
   return (
     <Container>
