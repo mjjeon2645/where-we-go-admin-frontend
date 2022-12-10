@@ -135,7 +135,7 @@ export default function DeleteReviewModal({
       </Content>
       <CloseButton type="button" onClick={closeModal}>X</CloseButton>
       <DirectionButtons>
-        <Delete type="button" onClick={handleDeleteReviewClick}>삭제하기</Delete>
+        <Delete type="button" onClick={handleDeleteReviewClick}>삭제</Delete>
       </DirectionButtons>
     </StyledModal>
   );

@@ -23,6 +23,27 @@ module.exports = function () {
       this.amOnPage(`${backdoorBaseUrl}/setup-two-users`);
     },
 
+    setupNoReview() {
+      this.amOnPage(`${backdoorBaseUrl}/setup-no-review`);
+    },
+
+    setupThreeReviews() {
+      this.amOnPage(`${backdoorBaseUrl}/setup-three-reviews`);
+    },
+
+    setupAll() {
+      this.resetAll();
+      this.setupAdmin();
+      this.setupFivePlaces();
+      this.setupTwoUsers();
+      this.setupThreeReviews();
+    },
+
+    // reset
+    resetAll() {
+      this.amOnPage(`${backdoorBaseUrl}/reset-all`);
+    },
+
     // login
     login() {
       this.amOnPage(`${backdoorBaseUrl}/setup-admin`);
