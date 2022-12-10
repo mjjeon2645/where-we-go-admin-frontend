@@ -47,7 +47,7 @@ describe('UsersList', () => {
       screen.getByText('test2@test.com');
       screen.getByText('회원가입 일자');
       screen.getByText('2022-12-03');
-      screen.getByText('인증 주체');
+      screen.getByText('인증 방식');
       screen.getByText('kakao');
       screen.getByText('naver');
     });

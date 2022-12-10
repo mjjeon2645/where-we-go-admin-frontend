@@ -87,7 +87,7 @@ export default function UsersList({ users, goUserDetailPage }) {
                 <Nickname>닉네임</Nickname>
                 <Email>이메일</Email>
                 <CreatedAt>회원가입 일자</CreatedAt>
-                <AuthBy>인증 주체</AuthBy>
+                <AuthBy>인증 방식</AuthBy>
               </tr>
             </thead>
             <tbody>
@@ -112,7 +112,7 @@ export default function UsersList({ users, goUserDetailPage }) {
           </Table>
         </div>
       ) : (
-        <NoUsers>등록된 유저가 없습니다.</NoUsers>
+        <NoUsers>등록된 사용자가 없습니다.</NoUsers>
       )}
     </article>
   );
