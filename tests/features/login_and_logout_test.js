@@ -1,4 +1,4 @@
-Feature('login');
+Feature('login, logout');
 
 Scenario('관리자가 홈페이지 홈 화면(로그인 페이지)에 접속했을 때', ({ I }) => {
   // When
@@ -67,4 +67,19 @@ Scenario('아이디, 비밀번호가 정확하지 않을 때', ({ I }) => {
 
   // Then
   I.see('입력하신 정보가 정확하지 않습니다. 아이디와 비밀번호를 다시 확인해주세요.');
+});
+
+// 로그아웃
+Scenario('관리자가 서비스 사용을 종료하고 로그아웃 할 때', ({ I }) => {
+  // Given
+  I.login();
+
+  // When
+  I.click('로그아웃');
+
+  // Then
+  I.dontSee('장소 관리');
+  I.dontSee('회원 관리');
+  I.see('Admin Login');
+  I.see('로그인');
 });
