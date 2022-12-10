@@ -1,10 +1,27 @@
-// in this file you can append custom step methods to 'I' object
+const backdoorBaseUrl = 'http://localhost:8000/admin-backdoor';
 
-module.exports = function() {
+module.exports = function () {
   return actor({
+    // Setup Databases
+    setupAdmin() {
+      this.amOnPage(`${backdoorBaseUrl}/setup-admin`);
+    },
 
-    // Define custom steps here, use 'this' to access default methods of I.
-    // It is recommended to place a general 'login' function here.
+    setupNoPlace() {
+      this.amOnPage(`${backdoorBaseUrl}/setup-no-place`);
+    },
 
+    setupFivePlaces() {
+      this.amOnPage(`${backdoorBaseUrl}/setup-five-places`);
+    },
+
+    // login
+    login() {
+      this.amOnPage(`${backdoorBaseUrl}/setup-admin`);
+      this.amOnPage('/');
+      this.fillField('#input-admin-id', 'tester123');
+      this.fillField('#input-password', 'Tester123!');
+      this.click('로그인');
+    },
   });
-}
+};
