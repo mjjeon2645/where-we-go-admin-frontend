@@ -8,7 +8,11 @@ const baseUrl = config.apiBaseUrl;
 export default class UserApiService {
   async fetchAllUsers() {
     const url = `${baseUrl}/admin-users`;
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
 
     return data.users;
   }

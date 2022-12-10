@@ -8,16 +8,32 @@ const baseUrl = config.apiBaseUrl;
 const { cloudinaryName, cloudinaryKey } = config;
 
 export default class PlaceApiService {
+  constructor() {
+    this.accessToken = '';
+  }
+
+  setAccessToken(accessToken) {
+    this.accessToken = accessToken;
+  }
+
   async fetchPlaces() {
     const url = `${baseUrl}/admin-places`;
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
 
     return data;
   }
 
   async fetchSelectedPlace(id) {
     const url = `${baseUrl}/admin-places/${id}`;
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
 
     return data;
   }
@@ -28,7 +44,11 @@ export default class PlaceApiService {
       ...data, ...address, ...position, ...imageSource,
     };
 
-    const response = await axios.post(url, newData);
+    const response = await axios.post(url, newData, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
 
     return response.data;
   }

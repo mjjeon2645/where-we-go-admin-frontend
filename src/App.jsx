@@ -18,6 +18,8 @@ import WelcomePage from './pages/WelcomePage';
 import SideMenu from './components/SideMenu';
 import { adminApiService } from './services/AdminApiService';
 import { userReviewApiService } from './services/UserReviewApiService';
+import AuthenticationErrorPage from './pages/AuthenticationErrorPage';
+import { placeApiService } from './services/PlaceApiService';
 
 const Container = styled.div`
 max-width: 1440px;
@@ -50,6 +52,7 @@ export default function App() {
   useEffect(() => {
     adminApiService.setAccessToken(accessToken);
     userReviewApiService.setAccessToken(accessToken);
+    placeApiService.setAccessToken(accessToken);
   }, [accessToken]);
 
   return (
@@ -74,6 +77,7 @@ export default function App() {
             <Route path="/reviews/:id" element={<UserReviewDetailPage />} />
             <Route path="/users" element={<UsersPage />} />
             <Route path="/users/:id" element={<UserDetailPage />} />
+            <Route path="auth-error" element={<AuthenticationErrorPage />} />
           </Routes>
         </ModalProvider>
       </Content>

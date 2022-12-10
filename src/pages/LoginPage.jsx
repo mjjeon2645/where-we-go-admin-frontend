@@ -17,6 +17,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     setAccessToken('');
+    adminStore.clearError();
   }, []);
 
   const submit = async (data) => {

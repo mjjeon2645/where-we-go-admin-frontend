@@ -20,7 +20,7 @@ export default function NewPlacePage() {
 
   const {
     firstImageUrl, secondImageUrl, thirdImageUrl,
-    isMissingAddress, isMissingCategory, errorMessage,
+    isMissingAddress, isMissingCategory, isMissingAccessToken, errorMessage,
   } = placeStore;
 
   const navigate = useNavigate();
@@ -78,6 +78,7 @@ export default function NewPlacePage() {
         goPrevPage={goPrevPage}
         isMissingAddress={isMissingAddress}
         isMissingCategory={isMissingCategory}
+        isMissingAccessToken={isMissingAccessToken}
         errorMessage={errorMessage}
       />
     </Container>

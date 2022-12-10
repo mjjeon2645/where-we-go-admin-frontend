@@ -18,6 +18,10 @@ const Container = styled.div`
 const Field = styled.div`
   margin-bottom: 2em;
   width: 40%;
+
+  .detail-address {
+    margin-top: 1.5em;
+  }
 `;
 
 const RadioButtonField = styled.div`
@@ -103,14 +107,14 @@ const Error = styled.p`
 export default function NewPlaceForm({
   uploadFirstImage, firstImageUrl, uploadSecondImage, secondImageUrl,
   uploadThirdImage, thirdImageUrl, submit, goPrevPage,
-  isMissingAddress, isMissingCategory, errorMessage,
+  isMissingAddress, isMissingCategory, isMissingAccessToken, errorMessage,
 }) {
   const placeStore = usePlaceStore();
 
   const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
 
   const onSubmit = async (data) => {
-    submit(data);
+    await submit(data);
   };
 
   const handleFirstImageChange = (event) => {
@@ -181,9 +185,9 @@ export default function NewPlaceForm({
             changeLatitude={changeLatitude}
             changeLongitude={changeLongitude}
           />
-          <Label htmlFor="detail-address">상세 주소: </Label>
-          <Input id="detail-address" {...register('detailAddress')} />
           {isMissingAddress && (<Error>{errorMessage}</Error>)}
+          <Label htmlFor="detail-address" className="detail-address">상세 주소: </Label>
+          <Input id="detail-address" {...register('detailAddress')} />
         </Field>
         <Field>
           <Label htmlFor="place-category">장소 유형: </Label>
@@ -545,6 +549,9 @@ export default function NewPlaceForm({
         </div>
         <SubmitButton type="submit">등록하기</SubmitButton>
         <CancelButton type="button" onClick={handleGoPrevPageClick}>취소</CancelButton>
+        {isMissingAccessToken && (
+          <Error>잘못된 접근입니다. 로그인 후 시도하세요.</Error>
+        )}
       </form>
     </Container>
   );

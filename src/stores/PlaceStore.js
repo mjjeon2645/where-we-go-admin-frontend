@@ -1,6 +1,8 @@
 /* eslint-disable class-methods-use-this */
 import { placeApiService } from '../services/PlaceApiService';
+
 import { fullAddressFormater } from '../utils/addressFormatter';
+
 import Store from './Store';
 
 export default class PlaceStore extends Store {
@@ -26,15 +28,34 @@ export default class PlaceStore extends Store {
   }
 
   async fetchPlaces() {
-    const { places } = await placeApiService.fetchPlaces();
-    this.places = places;
-    this.publish();
+    try {
+      const { places } = await placeApiService.fetchPlaces();
+      this.places = places;
+      this.publish();
+
+      return places;
+    } catch (error) {
+      // const { message } = error.response.data;
+      // this.publish();
+
+      return '';
+    }
   }
 
   async fetchSelectedPlace(id) {
-    const place = await placeApiService.fetchSelectedPlace(id);
-    this.selectedPlace = place;
-    this.publish();
+    try {
+      const place = await placeApiService.fetchSelectedPlace(id);
+      this.selectedPlace = place;
+      this.publish();
+
+      return place;
+    } catch (error) {
+      const { message } = error.response.data;
+      this.errorMessage = message;
+      this.publish();
+
+      return '';
+    }
   }
 
   setRoadAddress(address) {
@@ -101,6 +122,10 @@ export default class PlaceStore extends Store {
       if (message === '장소 유형을 선택해주세요') {
         this.changeNewPlaceState('missingCategory', { errorMessage: message });
       }
+
+      if (message.startsWith('Missing')) {
+        this.changeNewPlaceState('missingAccessToken', { errorMessage: message });
+      }
       return '';
     }
   }
@@ -147,6 +172,10 @@ export default class PlaceStore extends Store {
     return this.newPlaceState === 'missingCategory';
   }
 
+  get isMissingAccessToken() {
+    return this.newPlaceState === 'missingAccessToken';
+  }
+
   clearAddPlaceState() {
     this.roadAddress = '';
     this.jibunAddress = '';
@@ -158,6 +187,11 @@ export default class PlaceStore extends Store {
     this.firstImageUrl = '';
     this.secondImageUrl = '';
     this.thirdImageUrl = '';
+  }
+
+  clearErrorMessage() {
+    this.newPlaceState = '';
+    this.errorMessage = '';
   }
 }
 
