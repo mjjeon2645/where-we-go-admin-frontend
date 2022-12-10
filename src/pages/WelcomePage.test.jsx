@@ -20,7 +20,7 @@ describe('WelcomePage', () => {
 
       screen.getByText('어드민 계정 생성 완료');
       screen.getByText('어드민 계정 생성이 완료되었습니다.');
-      screen.getByText('로그인을 진행해주세요');
+      screen.getByText('로그인을 진행해주세요.');
 
       fireEvent.click(screen.getByText('로그인하기'));
       expect(navigate).toBeCalledWith('/');
