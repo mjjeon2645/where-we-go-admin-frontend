@@ -95,6 +95,10 @@ export default class UserReviewStore extends Store {
 
     this.publish();
   }
+
+  clearError() {
+    this.errorMessage = '';
+  }
 }
 
 export const userReviewStore = new UserReviewStore();

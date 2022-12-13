@@ -35,15 +35,15 @@ const Number = styled.th`
 `;
 
 const CreatedAt = styled.th`
-  width: 10%;
+  width: 17%;
 `;
 
 const Nickname = styled.th`
-  width: 15%;
+  width: 12%;
 `;
 
 const Body = styled.th`
-  width: 40%;
+  width: 43%;
 `;
 
 const Rate = styled.th`
@@ -51,7 +51,7 @@ const Rate = styled.th`
 `;
 
 const Place = styled.th`
-  width: 25%;
+  width: 28%;
 `;
 
 export default function UserReviewsList({

@@ -7,17 +7,26 @@ const SubFunction = styled.div`
   margin-top: 3em;
   margin-bottom: .5em;
 
-  button {
+  /* button {
     color: #FFF;
     background: #054468;
     border: none;
     border-radius: 8px;
     padding: .5em 1em;
-  }
+  } */
 
   strong {
     color: #ff6416;
   }
+`;
+
+const AddButton = styled.button`
+  color: #FFF;
+  background: #054468;
+  border: none;
+  border-radius: 8px;
+  padding: .5em 1em;
+  margin-top: 5em;
 `;
 
 const Table = styled.table`
@@ -49,11 +58,11 @@ const Number = styled.th`
 `;
 
 const PlaceName = styled.th`
-  width: 20%;
+  width: 23%;
 `;
 
 const Identifier = styled.th`
-  width: 10%;
+  width: 7%;
 `;
 
 const Address = styled.th`
@@ -78,10 +87,11 @@ export default function PlacesList({ places, goAddPlacePage, goPlaceDetailPage }
 
   return (
     <article>
+      <AddButton type="button" onClick={handleAddPlaceClick}>신규 장소 추가하기</AddButton>
       {places.length ? (
         <div>
           <SubFunction>
-            <button type="button" onClick={handleAddPlaceClick}>신규 장소 추가하기</button>
+            {/* <button type="button" onClick={handleAddPlaceClick}>신규 장소 추가하기</button> */}
             <p>
               총
               {' '}

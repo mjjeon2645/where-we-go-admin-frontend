@@ -50,6 +50,7 @@ export default function NewPlacePage() {
     }
 
     placeStore.clearAddPlaceState();
+    placeStore.clearError();
     navigate('/places');
   };
 

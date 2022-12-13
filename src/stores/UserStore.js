@@ -59,6 +59,10 @@ export default class UserStore extends Store {
     await userApiService.deleteUser(userId);
     this.publish();
   }
+
+  clearError() {
+    this.errorMessage = '';
+  }
 }
 
 export const userStore = new UserStore();

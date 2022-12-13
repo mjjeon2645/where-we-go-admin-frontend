@@ -14,8 +14,9 @@ const Wrapper = styled.div`
 
 const Title = styled.h2`
   font-size: 2em;
+  color: #1D5C84;
   font-weight: bold;
-  border-bottom: 1px solid #83e8ca;
+  border-bottom: 1px solid #1D5C84;
   margin-bottom: 1.5em;
   padding-bottom: .3em;
 `;
@@ -30,14 +31,15 @@ const Input = styled.input`
   padding-block: 1em;
   padding-inline: 1em;
   margin-bottom: .7em;
-  
+  border: 1px #DDD solid;
+
   :focus {
-    outline: 1px solid #42deb6;
+    outline: 1px solid #1D5C84;
     }
 `;
 
 const Label = styled.label`
-  font-weight: bold;
+  font-weight: 400;
   color: #A0A0A0;
   display: block;
   text-align: left;
@@ -97,7 +99,7 @@ export default function SignUpForm({
               'name',
               {
                 required: { value: true, message: '이름을 입력해주세요' },
-                pattern: { value: /^[ㄱ-ㅎ|가-힣]{3,7}$/, message: '이름을 다시 확인해주세요' },
+                pattern: { value: /^[ㄱ-ㅎ|가-힣]{2,7}$/, message: '이름을 다시 확인해주세요' },
               },
             )}
             error={errors.name}
@@ -105,7 +107,7 @@ export default function SignUpForm({
           {errors.name ? (
             <Error>{errors.name.message}</Error>
           )
-            : <Message>3~7자까지 한글만 사용 가능</Message>}
+            : <Message>2~7자까지 한글만 사용 가능</Message>}
         </Field>
         <Field>
           <Label htmlFor="input-employee-number">사번 :</Label>
@@ -192,8 +194,8 @@ export default function SignUpForm({
               : (<Error>비밀번호가 일치하지 않습니다</Error>)) : null}
         </Field>
         <Field>
-          <label htmlFor="profile-image">프로필 이미지</label>
-          <input
+          <Label htmlFor="profile-image">프로필 이미지</Label>
+          <Input
             {...register(
               'profileImage',
               {

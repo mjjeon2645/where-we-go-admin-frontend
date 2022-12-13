@@ -15,6 +15,8 @@ const Field = styled.section`
 
   span {
     color: #6c6c6c;
+    max-width: 70%;
+    word-break: break-all;
   }
 `;
 
