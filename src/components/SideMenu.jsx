@@ -15,12 +15,18 @@ const ProfileSection = styled.div`
   text-align: center;
 `;
 
-const ProfileImage = styled.img`
-  display: block;
+const ProfileFrame = styled.div`
   width: 100px;
-  height: 100px;
+  height: 100px;  
   border-radius: 50%;
   margin: 0 auto;
+  overflow: hidden;
+`;
+
+const ProfileImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const Name = styled.h3`
@@ -102,7 +108,9 @@ export default function SideMenu() {
       {Object.keys(admin).length !== 0 ? (
         <div>
           <ProfileSection>
-            <ProfileImage src={admin.profileImage} alt="" />
+            <ProfileFrame>
+              <ProfileImage src={admin.profileImage} alt="" />
+            </ProfileFrame>
             <Name>{admin.name}</Name>
             <EmployeeNumber>
               사원번호:

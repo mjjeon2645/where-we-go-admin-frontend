@@ -107,7 +107,8 @@ export default function LoginForm({
           ) : ''}
         <Login type="submit">로그인</Login>
       </form>
-      <SignUp type="button" onClick={handleSignUpClick}>어드민 계정 생성하기</SignUp>
+      {/* TODO. 추후 super admin 계정 생성 시 사이드메뉴에 별도로 부여
+      <SignUp type="button" onClick={handleSignUpClick}>어드민 계정 생성하기</SignUp> */}
     </Wrapper>
   );
 }

@@ -6,11 +6,17 @@ import { useLocalStorage } from 'usehooks-ts';
 import LoginForm from '../components/LoginForm';
 
 import useAdminStore from '../hooks/useAdminStore';
+import usePlaceStore from '../hooks/usePlaceStore';
+import useUserReviewStore from '../hooks/useUserReviewStore';
+import useUserStore from '../hooks/useUserStore';
 
 export default function LoginPage() {
   const [, setAccessToken] = useLocalStorage('accessToken', '');
 
   const adminStore = useAdminStore();
+  const placeStore = usePlaceStore();
+  const userReviewStore = useUserReviewStore();
+  const userStore = useUserStore();
   const { errorMessage } = adminStore;
 
   const navigate = useNavigate();
@@ -18,6 +24,9 @@ export default function LoginPage() {
   useEffect(() => {
     setAccessToken('');
     adminStore.clearError();
+    // placeStore.clearError();
+    // userReviewStore.clearError();
+    // userStore.clearError();
   }, []);
 
   const submit = async (data) => {

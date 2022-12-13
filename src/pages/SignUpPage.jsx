@@ -24,8 +24,6 @@ export default function SignUpPage() {
   };
 
   const submit = async (data) => {
-    // adminStore.signUpState = '';
-
     const {
       name, adminId, employeeIdentificationNumber, password, checkPassword,
     } = data;

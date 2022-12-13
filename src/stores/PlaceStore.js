@@ -190,7 +190,7 @@ export default class PlaceStore extends Store {
     this.thirdImageUrl = '';
   }
 
-  clearErrorMessage() {
+  clearError() {
     this.newPlaceState = '';
     this.errorMessage = '';
   }
