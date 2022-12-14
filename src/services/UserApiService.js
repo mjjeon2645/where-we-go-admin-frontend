@@ -36,9 +36,16 @@ export default class UserApiService {
     return data;
   }
 
-  async deleteUser(id) {
+  async deleteUser(id, reason, password) {
     const url = `${baseUrl}/admin-users/${id}`;
-    await axios.delete(url);
+    const data = await axios.post(url, { reason, password }, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+    console.log(data);
+
+    return data;
   }
 }
 

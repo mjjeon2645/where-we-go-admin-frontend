@@ -54,9 +54,9 @@ const DeleteButton = styled.div`
   }
 `;
 
-export default function InformationOfSelectedUser({ user, deleteUser }) {
-  const handleDeleteUserClick = (userId) => {
-    deleteUser(userId);
+export default function InformationOfSelectedUser({ user, toggleModal }) {
+  const handleDeleteModalOpenClick = () => {
+    toggleModal();
   };
 
   return (
@@ -92,7 +92,7 @@ export default function InformationOfSelectedUser({ user, deleteUser }) {
             <p>{signUpStateFormatter(user.state)}</p>
           </LastSection>
           <DeleteButton>
-            <button type="button" onClick={() => handleDeleteUserClick(user.id)}>회원 삭제</button>
+            <button type="button" onClick={() => handleDeleteModalOpenClick(user.id)}>회원 삭제</button>
           </DeleteButton>
         </Wrapper>
       ) : (

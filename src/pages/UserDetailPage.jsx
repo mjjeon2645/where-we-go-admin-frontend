@@ -6,6 +6,7 @@ import UserDetail from '../components/UserDetail';
 
 import useUserStore from '../hooks/useUserStore';
 import useUserReviewStore from '../hooks/useUserReviewStore';
+import useAdminStore from '../hooks/useAdminStore';
 
 const Container = styled.div`
   padding: 5em 2em;
@@ -19,15 +20,22 @@ const Title = styled.h2`
 export default function UserDetailPage() {
   const userStore = useUserStore();
   const userReviewStore = useUserReviewStore();
+  const adminStore = useAdminStore();
+
   const navigate = useNavigate();
 
   const { user, children: userChildren, bookmarks } = userStore;
   const { userReviewsFoundByUserId } = userReviewStore;
+  const { adminId, employeeIdentificationNumber } = adminStore;
+
   const id = document.location.pathname.split('/')[2];
 
   async function renderUserDetailPage() {
     const response = await userStore.fetchSelectedUser(id);
+
     await userReviewStore.fetchAllReviewsByUserId(id);
+
+    await adminStore.fetchAdmin();
 
     if (response === 'authentication error') {
       navigate('/auth-error');
@@ -37,11 +45,6 @@ export default function UserDetailPage() {
   useEffect(() => {
     renderUserDetailPage();
   }, []);
-
-  const deleteSelectedUser = async (userId) => {
-    await userStore.deleteSelectedUser(userId);
-    navigate('/users');
-  };
 
   return (
     <Container>
@@ -57,7 +60,8 @@ export default function UserDetailPage() {
         userChildren={userChildren}
         bookmarks={bookmarks}
         userReviews={userReviewsFoundByUserId}
-        deleteSelectedUser={deleteSelectedUser}
+        adminId={adminId}
+        employeeIdentificationNumber={employeeIdentificationNumber}
       />
     </Container>
   );

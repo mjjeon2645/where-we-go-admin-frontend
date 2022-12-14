@@ -25,6 +25,9 @@ export default class PlaceStore extends Store {
 
     this.newPlaceState = '';
     this.errorMessage = '';
+
+    this.reason = '';
+    this.password = '';
   }
 
   async fetchPlaces() {
@@ -132,7 +135,17 @@ export default class PlaceStore extends Store {
   }
 
   async deletePlace(id) {
-    await placeApiService.deletePlace(id);
+    try {
+      const response = await placeApiService.deletePlace(id, this.reason, this.password);
+
+      return response;
+    } catch (error) {
+      const { message } = error.response.data;
+      this.errorMessage = message;
+      this.publish();
+
+      return '';
+    }
   }
 
   async uploadFirstImage(imageFile) {
@@ -193,6 +206,16 @@ export default class PlaceStore extends Store {
   clearError() {
     this.newPlaceState = '';
     this.errorMessage = '';
+  }
+
+  setDeleteReason(reason) {
+    this.reason = reason;
+    this.publish();
+  }
+
+  setAdminPassword(password) {
+    this.password = password;
+    this.publish();
   }
 }
 
