@@ -83,9 +83,9 @@ const Buttons = styled.div`
   text-align: center;
 `;
 
-export default function PlaceDetail({ selectedPlace, deletePlace, goPrevPage }) {
-  const handleDeletePlaceClick = (id) => {
-    deletePlace(id);
+export default function PlaceDetail({ selectedPlace, toggleModal, goPrevPage }) {
+  const handleDeletePlaceClick = () => {
+    toggleModal();
   };
 
   const handleGoBackClick = () => {
@@ -177,7 +177,7 @@ export default function PlaceDetail({ selectedPlace, deletePlace, goPrevPage }) 
           <Buttons>
             <DeleteButton
               type="button"
-              onClick={() => handleDeletePlaceClick(selectedPlace.placeId)}
+              onClick={handleDeletePlaceClick}
             >
               삭제하기
             </DeleteButton>

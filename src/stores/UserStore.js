@@ -12,6 +12,8 @@ export default class UserStore extends Store {
     this.children = [];
     this.bookmarks = [];
 
+    this.reason = '';
+    this.password = '';
     this.errorMessage = '';
   }
 
@@ -56,8 +58,32 @@ export default class UserStore extends Store {
   }
 
   async deleteSelectedUser(userId) {
-    await userApiService.deleteUser(userId);
+    try {
+      const response = await userApiService.deleteUser(userId, this.reason, this.password);
+
+      return response;
+    } catch (error) {
+      const { message } = error.response.data;
+      this.errorMessage = message;
+      this.publish();
+
+      return '';
+    }
+  }
+
+  setDeleteReason(reason) {
+    this.reason = reason;
     this.publish();
+  }
+
+  setAdminPassword(password) {
+    this.password = password;
+    this.publish();
+  }
+
+  clearDeleteState() {
+    this.reason = '';
+    this.password = '';
   }
 
   clearError() {

@@ -1,9 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import DeletePlaceModal from '../components/DeletePlaceModal';
 
 import PlaceDetail from '../components/PlaceDetail';
+import useAdminStore from '../hooks/useAdminStore';
 
 import usePlaceStore from '../hooks/usePlaceStore';
 
@@ -18,16 +20,21 @@ const Title = styled.h2`
 `;
 
 export default function PlaceDetailPage() {
+  const [isOpen, setIsOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const placeStore = usePlaceStore();
+  const adminStore = useAdminStore();
 
   const { selectedPlace, errorMessage } = placeStore;
+  const { adminId, employeeIdentificationNumber } = adminStore;
 
   const placeId = document.location.pathname.split('/')[2];
 
-  async function test() {
+  async function renderPlaceDetail() {
     const response = await placeStore.fetchSelectedPlace(placeId);
+    await adminStore.fetchAdmin();
 
     if (response === 'authentication error') {
       navigate('/auth-error');
@@ -35,16 +42,35 @@ export default function PlaceDetailPage() {
   }
 
   useEffect(() => {
-    test();
+    renderPlaceDetail();
   }, [errorMessage]);
 
-  const deletePlace = async (id) => {
-    await placeStore.deletePlace(id);
+  const deletePlace = async () => {
+    const response = await placeStore.deletePlace(placeId);
+
+    if (!response) {
+      return;
+    }
+
+    placeStore.clearError();
     navigate('/places');
   };
 
   const goPrevPage = () => {
     navigate(-1);
+  };
+
+  const toggleModal = () => {
+    placeStore.clearError();
+    setIsOpen(!isOpen);
+  };
+
+  const setDeleteReason = (reason) => {
+    placeStore.setDeleteReason(reason);
+  };
+
+  const setAdminPassword = (password) => {
+    placeStore.setAdminPassword(password);
   };
 
   return (
@@ -58,8 +84,18 @@ export default function PlaceDetailPage() {
       </Title>
       <PlaceDetail
         selectedPlace={selectedPlace}
-        deletePlace={deletePlace}
+        toggleModal={toggleModal}
         goPrevPage={goPrevPage}
+      />
+      <DeletePlaceModal
+        isOpen={isOpen}
+        toggleModal={toggleModal}
+        deletePlace={deletePlace}
+        setDeleteReason={setDeleteReason}
+        adminId={adminId}
+        employeeIdentificationNumber={employeeIdentificationNumber}
+        setAdminPassword={setAdminPassword}
+        errorMessage={errorMessage}
       />
     </Container>
   );

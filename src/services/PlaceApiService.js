@@ -53,9 +53,15 @@ export default class PlaceApiService {
     return response.data;
   }
 
-  async deletePlace(id) {
+  async deletePlace(id, reason, password) {
     const url = `${baseUrl}/admin-places/${id}`;
-    await axios.delete(url);
+    const data = await axios.post(url, { reason, password }, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+    console.log(data);
+    return data;
   }
 
   async upload(imageFile) {
