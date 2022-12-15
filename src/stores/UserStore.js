@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import { userApiService } from '../services/UserApiService';
+import { adminApiService } from '../services/AdminApiService';
 import Store from './Store';
 
 export default class UserStore extends Store {
@@ -19,7 +19,7 @@ export default class UserStore extends Store {
 
   async fetchAllUsers() {
     try {
-      const users = await userApiService.fetchAllUsers();
+      const users = await adminApiService.fetchAllUsers();
       this.users = users;
       this.publish();
 
@@ -36,7 +36,7 @@ export default class UserStore extends Store {
     try {
       const {
         bookmarkedPlaces, children, userDto: user,
-      } = await userApiService.fetchSelectedUser(id);
+      } = await adminApiService.fetchSelectedUser(id);
 
       this.user = user;
       this.children = children;
@@ -59,7 +59,7 @@ export default class UserStore extends Store {
 
   async deleteSelectedUser(userId) {
     try {
-      const response = await userApiService.deleteUser(userId, this.reason, this.password);
+      const response = await adminApiService.deleteUser(userId, this.reason, this.password);
 
       return response;
     } catch (error) {

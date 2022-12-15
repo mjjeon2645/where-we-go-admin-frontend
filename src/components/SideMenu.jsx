@@ -8,7 +8,6 @@ import { useLocalStorage } from 'usehooks-ts';
 import useAdminStore from '../hooks/useAdminStore';
 
 import { adminApiService } from '../services/AdminApiService';
-import { placeApiService } from '../services/PlaceApiService';
 
 const ProfileSection = styled.div`
   margin-bottom: 30px;
@@ -93,7 +92,6 @@ export default function SideMenu() {
   useEffect(() => {
     if (accessToken) {
       adminApiService.setAccessToken(accessToken);
-      placeApiService.setAccessToken(accessToken);
       adminStore.fetchAdmin();
     }
   }, [accessToken]);
