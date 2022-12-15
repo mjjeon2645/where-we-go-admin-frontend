@@ -16,7 +16,7 @@ const StyledModal = Modal.styled`
   background-color: #FFF;
   border: 1px white solid;
   border-radius: 8px;
-  `;
+`;
 
 const Title = styled.p`
     font-size: 1.5em;

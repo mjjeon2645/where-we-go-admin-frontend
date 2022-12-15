@@ -1,11 +1,14 @@
 import { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
+
+import useUserStore from '../hooks/useUserStore';
+
 import InformationOfSelectedUser from './InformationOfSelectedUser';
 import ChildrenListOfSelectedUser from './ChildrenListOfSelectedUser';
 import UserReviewsListOfSelectedUser from './UserReviewsListOfSelectedUser';
 import BookmarksListOfSelectedUser from './BookmarksListOfSelectedUser';
 import DeleteUserModal from './DeleteUserModal';
-import useUserStore from '../hooks/useUserStore';
 
 export default function UserDetail({
   user, userChildren, bookmarks, userReviews, adminId, employeeIdentificationNumber,

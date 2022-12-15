@@ -1,5 +1,3 @@
-// TODO. 테스트가 너무 커서 부담인데 이게 맞는건가..?
-
 // import { fireEvent, render, screen } from '@testing-library/react';
 // import NewPlaceForm from './NewPlaceForm';
 

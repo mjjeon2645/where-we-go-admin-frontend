@@ -2,14 +2,26 @@ import { render, screen } from '@testing-library/react';
 
 import UserDetail from './UserDetail';
 
+const navigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  useNavigate: () => navigate,
+}));
+
+let errorMessage;
+
+jest.mock('../hooks/useUserStore', () => () => ({
+  errorMessage,
+}));
+
 const context = describe;
 
 let user;
 let userChildren;
 let bookmarks;
 let userReviewsFoundByUserId;
-
-const deleteSelectedUser = jest.fn();
+let adminId;
+let employeeIdentificationNumber;
 
 describe('UserDetail', () => {
   function renderUserDetail() {
@@ -18,13 +30,35 @@ describe('UserDetail', () => {
       userChildren={userChildren}
       bookmarks={bookmarks}
       userReviews={userReviewsFoundByUserId}
-      deleteSelectedUser={deleteSelectedUser}
+      adminId={adminId}
+      employeeIdentificationNumber={employeeIdentificationNumber}
     />);
   }
 
-  // TODO. 하단 컴포넌트들 테스트 모두 통과 시 해당 컴포넌트는 ui만 확인해주면 됨
   context('a manager accesses user detail page', () => {
-    user = {};
+    beforeEach(() => {
+      user = {
+        id: 123,
+        email: 'angel2645@naver.com',
+        nickname: '네이버민지룽',
+        socialLoginId: 'socialLoginId',
+        authBy: 'naver',
+        state: 'registered',
+        createdAt: '2022-12-15T12:47:15.858847',
+      };
+
+      userChildren = [
+        {
+          id: 265, userId: 123, gender: '공주님', birthday: '2022-12-14',
+        },
+      ];
+
+      bookmarks = [];
+      userReviewsFoundByUserId = [];
+      adminId = 'angel2645';
+      employeeIdentificationNumber = 1234;
+    });
+
     it('renders user detail', () => {
       renderUserDetail();
     });

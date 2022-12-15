@@ -91,7 +91,6 @@ export default function PlacesList({ places, goAddPlacePage, goPlaceDetailPage }
       {places.length ? (
         <div>
           <SubFunction>
-            {/* <button type="button" onClick={handleAddPlaceClick}>신규 장소 추가하기</button> */}
             <p>
               총
               {' '}

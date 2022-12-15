@@ -6,14 +6,14 @@ const context = describe;
 
 let selectedPlace;
 
-const deletePlace = jest.fn();
+const toggleModal = jest.fn();
 const goPrevPage = jest.fn();
 
 describe('PlaceDetail', () => {
   function renderPlaceDetail() {
     render(<PlaceDetail
       selectedPlace={selectedPlace}
-      deletePlace={deletePlace}
+      toggleModal={toggleModal}
       goPrevPage={goPrevPage}
     />);
   }
@@ -91,7 +91,7 @@ describe('PlaceDetail', () => {
 
         fireEvent.click(screen.getByText('삭제하기'));
 
-        expect(deletePlace).toBeCalled();
+        expect(toggleModal).toBeCalled();
       });
     });
 
