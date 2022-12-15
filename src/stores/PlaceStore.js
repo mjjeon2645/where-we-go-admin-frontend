@@ -1,6 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import { placeApiService } from '../services/PlaceApiService';
-
+import { adminApiService } from '../services/AdminApiService';
 import { fullAddressFormater } from '../utils/addressFormatter';
 
 import Store from './Store';
@@ -32,7 +31,7 @@ export default class PlaceStore extends Store {
 
   async fetchPlaces() {
     try {
-      const { places } = await placeApiService.fetchPlaces();
+      const { places } = await adminApiService.fetchPlaces();
       this.places = places;
       this.publish();
 
@@ -44,7 +43,7 @@ export default class PlaceStore extends Store {
 
   async fetchSelectedPlace(id) {
     try {
-      const place = await placeApiService.fetchSelectedPlace(id);
+      const place = await adminApiService.fetchSelectedPlace(id);
       this.selectedPlace = place;
       this.publish();
 
@@ -114,7 +113,7 @@ export default class PlaceStore extends Store {
     };
 
     try {
-      const response = await placeApiService.addNewPlace(data, address, position, imageSource);
+      const response = await adminApiService.addNewPlace(data, address, position, imageSource);
 
       return response;
     } catch (error) {
@@ -136,7 +135,7 @@ export default class PlaceStore extends Store {
 
   async deletePlace(id) {
     try {
-      const response = await placeApiService.deletePlace(id, this.reason, this.password);
+      const response = await adminApiService.deletePlace(id, this.reason, this.password);
 
       return response;
     } catch (error) {
@@ -149,7 +148,7 @@ export default class PlaceStore extends Store {
   }
 
   async uploadFirstImage(imageFile) {
-    const imageUrl = await placeApiService.upload(imageFile);
+    const imageUrl = await adminApiService.upload(imageFile);
 
     this.firstImageUrl = imageUrl;
 
@@ -157,7 +156,7 @@ export default class PlaceStore extends Store {
   }
 
   async uploadSecondImage(imageFile) {
-    const imageUrl = await placeApiService.upload(imageFile);
+    const imageUrl = await adminApiService.upload(imageFile);
 
     this.secondImageUrl = imageUrl;
 
@@ -165,7 +164,7 @@ export default class PlaceStore extends Store {
   }
 
   async uploadThirdImage(imageFile) {
-    const imageUrl = await placeApiService.upload(imageFile);
+    const imageUrl = await adminApiService.upload(imageFile);
 
     this.thirdImageUrl = imageUrl;
 

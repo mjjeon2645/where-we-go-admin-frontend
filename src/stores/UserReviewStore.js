@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import { userReviewApiService } from '../services/UserReviewApiService';
+import { adminApiService } from '../services/AdminApiService';
 import Store from './Store';
 
 export default class UserReviewStore extends Store {
@@ -18,7 +18,7 @@ export default class UserReviewStore extends Store {
 
   async fetchAllUserReviews() {
     try {
-      const allUserReviews = await userReviewApiService.fetchAllUserReviews();
+      const allUserReviews = await adminApiService.fetchAllUserReviews();
       this.allUserReviews = allUserReviews;
       this.publish();
 
@@ -38,7 +38,7 @@ export default class UserReviewStore extends Store {
 
   async fetchSelectedReview(id) {
     try {
-      const userReview = await userReviewApiService.selectedUserReview(id);
+      const userReview = await adminApiService.selectedUserReview(id);
       this.userReview = userReview;
       this.publish();
 
@@ -59,7 +59,7 @@ export default class UserReviewStore extends Store {
 
   async deleteReview(id) {
     try {
-      const data = await userReviewApiService
+      const data = await adminApiService
         .deleteReview(id, this.adminPassword, this.deleteReason);
 
       return data;
@@ -73,7 +73,7 @@ export default class UserReviewStore extends Store {
   }
 
   async fetchAllReviewsByUserId(userId) {
-    const userReviewsFoundByUserId = await userReviewApiService.fetchAllReviewsByUserId(userId);
+    const userReviewsFoundByUserId = await adminApiService.fetchAllReviewsByUserId(userId);
     this.userReviewsFoundByUserId = userReviewsFoundByUserId;
     this.publish();
   }

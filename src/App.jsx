@@ -17,10 +17,7 @@ import SignUpPage from './pages/SignUpPage';
 import WelcomePage from './pages/WelcomePage';
 import SideMenu from './components/SideMenu';
 import { adminApiService } from './services/AdminApiService';
-import { userReviewApiService } from './services/UserReviewApiService';
 import AuthenticationErrorPage from './pages/AuthenticationErrorPage';
-import { placeApiService } from './services/PlaceApiService';
-import { userApiService } from './services/UserApiService';
 
 const Container = styled.div`
 max-width: 1440px;
@@ -52,9 +49,6 @@ export default function App() {
 
   useEffect(() => {
     adminApiService.setAccessToken(accessToken);
-    userReviewApiService.setAccessToken(accessToken);
-    userApiService.setAccessToken(accessToken);
-    placeApiService.setAccessToken(accessToken);
   }, [accessToken]);
 
   return (

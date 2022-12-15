@@ -67,6 +67,126 @@ export default class AdminApiService {
 
     return data.url;
   }
+
+  async fetchPlaces() {
+    const url = `${baseUrl}/admin-places`;
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    return data;
+  }
+
+  async fetchSelectedPlace(id) {
+    const url = `${baseUrl}/admin-places/${id}`;
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    return data;
+  }
+
+  async addNewPlace(data, address, position, imageSource) {
+    const url = `${baseUrl}/admin-places/new`;
+    const newData = {
+      ...data, ...address, ...position, ...imageSource,
+    };
+
+    const response = await axios.post(url, newData, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    return response.data;
+  }
+
+  async deletePlace(id, reason, password) {
+    const url = `${baseUrl}/admin-places/${id}`;
+    const data = await axios.post(url, { reason, password }, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+    return data;
+  }
+
+  async fetchAllUsers() {
+    const url = `${baseUrl}/admin-users`;
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    return data.users;
+  }
+
+  async fetchSelectedUser(id) {
+    const url = `${baseUrl}/admin-users/${id}`;
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    return data;
+  }
+
+  async deleteUser(id, reason, password) {
+    const url = `${baseUrl}/admin-users/${id}`;
+    const data = await axios.post(url, { reason, password }, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    return data;
+  }
+
+  async fetchAllUserReviews() {
+    const url = `${baseUrl}/admin-user-reviews`;
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    return data.userReviews;
+  }
+
+  async selectedUserReview(reviewId) {
+    const url = `${baseUrl}/admin-user-reviews/${reviewId}`;
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    return data;
+  }
+
+  async fetchAllReviewsByUserId(userId) {
+    const url = `${baseUrl}/admin-user-reviews/userId/${userId}`;
+    const { data } = await axios.get(url);
+
+    return data.userReviews;
+  }
+
+  async deleteReview(id, password, reason) {
+    const url = `${baseUrl}/admin-user-reviews/${id}`;
+    const data = await axios.post(url, { password, reason }, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    return data;
+  }
 }
 
 export const adminApiService = new AdminApiService();
