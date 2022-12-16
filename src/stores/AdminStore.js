@@ -34,30 +34,30 @@ export default class AdminStore extends Store {
     }
   }
 
-  async adminSignUp({
-    name, adminId, employeeIdentificationNumber, password,
-  }) {
-    try {
-      const data = await adminApiService.signUp({
-        name, adminId, employeeIdentificationNumber, password,
-      }, this.profileImageUrl);
+  // async adminSignUp({
+  //   name, adminId, employeeIdentificationNumber, password,
+  // }) {
+  //   try {
+  //     const data = await adminApiService.signUp({
+  //       name, adminId, employeeIdentificationNumber, password,
+  //     }, this.profileImageUrl);
 
-      this.clearError();
+  //     this.clearError();
 
-      return data;
-    } catch (error) {
-      const { message } = error.response.data;
-      if (message === '이미 어드민 권한을 가진 사원입니다. 로그인을 진행해주세요') {
-        this.changeSignUpState('exist', { errorMessage: message });
-      }
+  //     return data;
+  //   } catch (error) {
+  //     const { message } = error.response.data;
+  //     if (message === '이미 어드민 권한을 가진 사원입니다. 로그인을 진행해주세요') {
+  //       this.changeSignUpState('exist', { errorMessage: message });
+  //     }
 
-      if (message === '이미 존재하는 아이디입니다. 다른 아이디를 입력해주세요') {
-        this.changeSignUpState('duplicated', { errorMessage: message });
-      }
+  //     if (message === '이미 존재하는 아이디입니다. 다른 아이디를 입력해주세요') {
+  //       this.changeSignUpState('duplicated', { errorMessage: message });
+  //     }
 
-      return '';
-    }
-  }
+  //     return '';
+  //   }
+  // }
 
   async fetchAdmin() {
     try {

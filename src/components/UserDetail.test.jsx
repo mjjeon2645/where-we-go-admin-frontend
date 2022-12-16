@@ -1,4 +1,6 @@
-import { render, screen } from '@testing-library/react';
+// TODO. 리팩터링 필요?
+
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import UserDetail from './UserDetail';
 
@@ -10,8 +12,19 @@ jest.mock('react-router-dom', () => ({
 
 let errorMessage;
 
+const deleteSelectedUser = jest.fn();
+const clearDeleteState = jest.fn();
+const clearError = jest.fn();
+const setDeleteReason = jest.fn();
+const setAdminPassword = jest.fn();
+
 jest.mock('../hooks/useUserStore', () => () => ({
   errorMessage,
+  deleteSelectedUser,
+  clearDeleteState,
+  clearError,
+  setDeleteReason,
+  setAdminPassword,
 }));
 
 const context = describe;

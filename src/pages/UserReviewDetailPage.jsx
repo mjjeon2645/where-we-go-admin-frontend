@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import DeleteReviewModal from '../components/DeleteReviewModal';
@@ -22,6 +22,7 @@ export default function UserReviewDetailPage() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const userReviewStore = useUserReviewStore();
   const adminStore = useAdminStore();
@@ -29,7 +30,7 @@ export default function UserReviewDetailPage() {
   const { userReview, errorMessage } = userReviewStore;
   const { adminId, employeeIdentificationNumber } = adminStore;
 
-  const id = document.location.pathname.split('/')[2];
+  const id = location.pathname.split('/')[2];
 
   async function renderUserReviewDetailPage() {
     const response = await userReviewStore.fetchSelectedReview(id);

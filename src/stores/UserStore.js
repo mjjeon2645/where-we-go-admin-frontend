@@ -15,6 +15,8 @@ export default class UserStore extends Store {
     this.reason = '';
     this.password = '';
     this.errorMessage = '';
+
+    this.adminLog = {};
   }
 
   async fetchAllUsers() {
@@ -60,7 +62,7 @@ export default class UserStore extends Store {
   async deleteSelectedUser(userId) {
     try {
       const response = await adminApiService.deleteUser(userId, this.reason, this.password);
-
+      this.adminLog = response.createdAdminLog;
       return response;
     } catch (error) {
       const { message } = error.response.data;

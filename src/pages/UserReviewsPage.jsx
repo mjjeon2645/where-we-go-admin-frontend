@@ -30,6 +30,7 @@ export default function UserReviewsPage() {
       navigate('/auth-error');
     }
   }
+
   useEffect(() => {
     renderUserReviewPage();
   }, []);

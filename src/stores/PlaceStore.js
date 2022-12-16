@@ -37,6 +37,8 @@ export default class PlaceStore extends Store {
 
       return places;
     } catch (error) {
+      const { message } = error.response.data;
+      this.errorMessage = message;
       return '';
     }
   }

@@ -1,26 +1,25 @@
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 
 import UserDetailPage from './UserDetailPage';
 
 const navigate = jest.fn();
+let location;
 
 jest.mock('react-router-dom', () => ({
   useNavigate: () => navigate,
+  useLocation: () => location,
 }));
 
 let user;
-let userChildren;
+let children;
 let bookmarks;
-
-const fetchSelectedUser = jest.fn();
-const deleteSelectedUser = jest.fn();
+let fetchSelectedUser;
 
 jest.mock('../hooks/useUserStore', () => () => ({
   user,
-  userChildren,
+  children,
   bookmarks,
   fetchSelectedUser,
-  deleteSelectedUser,
 }));
 
 let userReviewsFoundByUserId;
@@ -29,7 +28,16 @@ const fetchAllReviewsByUserId = jest.fn();
 jest.mock('../hooks/useUserReviewStore', () => () => ({
   userReviewsFoundByUserId,
   fetchAllReviewsByUserId,
+}));
 
+let adminId;
+let employeeIdentificationNumber;
+const fetchAdmin = jest.fn();
+
+jest.mock('../hooks/useAdminStore', () => () => ({
+  adminId,
+  employeeIdentificationNumber,
+  fetchAdmin,
 }));
 
 const context = describe;
@@ -41,6 +49,10 @@ describe('UserDetailPage', () => {
 
   context('a manager clicks user nickname in users page', () => {
     beforeEach(() => {
+      fetchSelectedUser = jest.fn(() => 'response');
+
+      location = { pathname: '/users/155' };
+
       user = {
         id: 155,
         nickname: '민지룽룽',
@@ -51,7 +63,7 @@ describe('UserDetailPage', () => {
         state: 'registered',
       };
 
-      userChildren = [
+      children = [
         { id: 1, gender: '공주님', birthday: '2021-01-03' },
         { id: 2, gender: '아직 몰라요', birthday: '2023-01-03' },
       ];
@@ -67,11 +79,28 @@ describe('UserDetailPage', () => {
       ];
     });
 
-    it('renders user detail page', () => {
+    it('renders user detail page', async () => {
       renderUserDetailPage();
 
-      expect(fetchSelectedUser).toBeCalled();
-      expect(fetchAllReviewsByUserId).toBeCalled();
+      await waitFor(() => {
+        expect(fetchSelectedUser).toBeCalled();
+        expect(fetchAllReviewsByUserId).toBeCalledWith('155');
+        expect(fetchAdmin).toBeCalled();
+      });
+    });
+  });
+
+  context('no authentication', () => {
+    beforeEach(() => {
+      fetchSelectedUser = jest.fn(() => 'authentication error');
+    });
+
+    it('calls navigate', async () => {
+      renderUserDetailPage();
+
+      await waitFor(() => {
+        expect(navigate).toBeCalledWith('/auth-error');
+      });
     });
   });
 });

@@ -23,20 +23,20 @@ export default class AdminApiService {
     return data;
   }
 
-  async signUp({
-    name, adminId, employeeIdentificationNumber, password,
-  }, profileImageUrl) {
-    const url = `${baseUrl}/admin-signup`;
-    const { data } = await axios.post(url, {
-      name,
-      socialLoginId: adminId,
-      employeeIdentificationNumber,
-      password,
-      profileImage: profileImageUrl,
-    });
+  // async signUp({
+  //   name, adminId, employeeIdentificationNumber, password,
+  // }, profileImageUrl) {
+  //   const url = `${baseUrl}/admin-signup`;
+  //   const { data } = await axios.post(url, {
+  //     name,
+  //     socialLoginId: adminId,
+  //     employeeIdentificationNumber,
+  //     password,
+  //     profileImage: profileImageUrl,
+  //   });
 
-    return data;
-  }
+  //   return data;
+  // }
 
   async fetchAdmin() {
     const url = `${baseUrl}/admin-session`;
@@ -90,19 +90,19 @@ export default class AdminApiService {
     return data;
   }
 
-  async addNewPlace(data, address, position, imageSource) {
+  async addNewPlace(inputData, address, position, imageSource) {
     const url = `${baseUrl}/admin-places/new`;
     const newData = {
-      ...data, ...address, ...position, ...imageSource,
+      ...inputData, ...address, ...position, ...imageSource,
     };
 
-    const response = await axios.post(url, newData, {
+    const { data } = await axios.post(url, newData, {
       headers: {
         Authorization: `Bearer ${this.accessToken}`,
       },
     });
 
-    return response.data;
+    return data;
   }
 
   async deletePlace(id, reason, password) {
@@ -139,7 +139,7 @@ export default class AdminApiService {
 
   async deleteUser(id, reason, password) {
     const url = `${baseUrl}/admin-users/${id}`;
-    const data = await axios.post(url, { reason, password }, {
+    const { data } = await axios.post(url, { reason, password }, {
       headers: {
         Authorization: `Bearer ${this.accessToken}`,
       },

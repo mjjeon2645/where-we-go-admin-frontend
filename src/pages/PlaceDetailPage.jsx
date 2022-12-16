@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import DeletePlaceModal from '../components/DeletePlaceModal';
 
 import PlaceDetail from '../components/PlaceDetail';
-import useAdminStore from '../hooks/useAdminStore';
 
+import useAdminStore from '../hooks/useAdminStore';
 import usePlaceStore from '../hooks/usePlaceStore';
 
 const Container = styled.div`
@@ -23,6 +23,7 @@ export default function PlaceDetailPage() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const placeStore = usePlaceStore();
   const adminStore = useAdminStore();
@@ -30,7 +31,7 @@ export default function PlaceDetailPage() {
   const { selectedPlace, errorMessage } = placeStore;
   const { adminId, employeeIdentificationNumber } = adminStore;
 
-  const placeId = document.location.pathname.split('/')[2];
+  const placeId = location.pathname.split('/')[2];
 
   async function renderPlaceDetail() {
     const response = await placeStore.fetchSelectedPlace(placeId);
