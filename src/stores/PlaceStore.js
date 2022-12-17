@@ -27,6 +27,8 @@ export default class PlaceStore extends Store {
 
     this.reason = '';
     this.password = '';
+
+    this.adminLog = {};
   }
 
   async fetchPlaces() {
@@ -115,9 +117,10 @@ export default class PlaceStore extends Store {
     };
 
     try {
-      const response = await adminApiService.addNewPlace(data, address, position, imageSource);
+      const place = await adminApiService.addNewPlace(data, address, position, imageSource);
+      this.selectedPlace = place;
 
-      return response;
+      return place;
     } catch (error) {
       const { message } = error.response.data;
       if (message === '주소를 입력해주세요') {
@@ -138,6 +141,7 @@ export default class PlaceStore extends Store {
   async deletePlace(id) {
     try {
       const response = await adminApiService.deletePlace(id, this.reason, this.password);
+      this.adminLog = response;
 
       return response;
     } catch (error) {

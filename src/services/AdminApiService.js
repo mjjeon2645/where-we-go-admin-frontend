@@ -107,11 +107,12 @@ export default class AdminApiService {
 
   async deletePlace(id, reason, password) {
     const url = `${baseUrl}/admin-places/${id}`;
-    const data = await axios.post(url, { reason, password }, {
+    const { data } = await axios.post(url, { reason, password }, {
       headers: {
         Authorization: `Bearer ${this.accessToken}`,
       },
     });
+
     return data;
   }
 
@@ -177,9 +178,9 @@ export default class AdminApiService {
     return data.userReviews;
   }
 
-  async deleteReview(id, password, reason) {
+  async deleteReview(id, reason, password) {
     const url = `${baseUrl}/admin-user-reviews/${id}`;
-    const data = await axios.post(url, { password, reason }, {
+    const { data } = await axios.post(url, { reason, password }, {
       headers: {
         Authorization: `Bearer ${this.accessToken}`,
       },

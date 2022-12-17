@@ -14,6 +14,8 @@ export default class UserReviewStore extends Store {
     this.deleteReason = '';
     this.adminPassword = '';
     this.errorMessage = '';
+
+    this.adminLog = {};
   }
 
   async fetchAllUserReviews() {
@@ -60,7 +62,8 @@ export default class UserReviewStore extends Store {
   async deleteReview(id) {
     try {
       const data = await adminApiService
-        .deleteReview(id, this.adminPassword, this.deleteReason);
+        .deleteReview(id, this.deleteReason, this.adminPassword);
+      this.adminLog = data;
 
       return data;
     } catch (error) {
