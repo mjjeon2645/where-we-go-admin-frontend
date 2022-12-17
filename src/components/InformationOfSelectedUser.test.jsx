@@ -5,13 +5,13 @@ import InformationOfSelectedUser from './InformationOfSelectedUser';
 const context = describe;
 
 let user;
-const deleteUser = jest.fn();
+const toggleModal = jest.fn();
 
 describe('InformationOfSeclectedUser', () => {
   function renderInformationOfSelectedUser() {
     render(<InformationOfSelectedUser
       user={user}
-      deleteUser={deleteUser}
+      toggleModal={toggleModal}
     />);
   }
 
@@ -78,7 +78,7 @@ describe('InformationOfSeclectedUser', () => {
 
       fireEvent.click(screen.getByText('회원 삭제'));
 
-      expect(deleteUser).toBeCalled();
+      expect(toggleModal).toBeCalled();
     });
   });
 });

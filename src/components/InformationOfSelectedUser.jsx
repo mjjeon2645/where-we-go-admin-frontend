@@ -92,7 +92,7 @@ export default function InformationOfSelectedUser({ user, toggleModal }) {
             <p>{signUpStateFormatter(user.state)}</p>
           </LastSection>
           <DeleteButton>
-            <button type="button" onClick={() => handleDeleteModalOpenClick(user.id)}>회원 삭제</button>
+            <button type="button" onClick={handleDeleteModalOpenClick}>회원 삭제</button>
           </DeleteButton>
         </Wrapper>
       ) : (

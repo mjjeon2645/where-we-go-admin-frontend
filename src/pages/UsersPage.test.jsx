@@ -12,7 +12,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 let users;
-const fetchAllUsers = jest.fn();
+let fetchAllUsers;
 
 jest.mock('../hooks/useUserStore', () => () => ({
   users,
@@ -46,6 +46,8 @@ describe('UsersPage', () => {
           state: 'registered',
         },
       ];
+
+      fetchAllUsers = jest.fn(() => users);
     });
 
     it('renders users page', () => {
@@ -61,6 +63,21 @@ describe('UsersPage', () => {
       fireEvent.click(screen.getByText('전민지룽룽'));
 
       expect(navigate).toBeCalledWith('/users/160');
+    });
+  });
+
+  context('there is no response', () => {
+    beforeEach(() => {
+      fetchAllUsers = jest.fn(() => '');
+      users = [];
+    });
+
+    it('calls navigate function', async () => {
+      renderUsersPage();
+
+      await waitFor(() => {
+        expect(navigate).toBeCalledWith('/auth-error');
+      });
     });
   });
 });

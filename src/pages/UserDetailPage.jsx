@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import UserDetail from '../components/UserDetail';
@@ -23,12 +23,13 @@ export default function UserDetailPage() {
   const adminStore = useAdminStore();
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { user, children: userChildren, bookmarks } = userStore;
   const { userReviewsFoundByUserId } = userReviewStore;
   const { adminId, employeeIdentificationNumber } = adminStore;
 
-  const id = document.location.pathname.split('/')[2];
+  const id = location.pathname.split('/')[2];
 
   async function renderUserDetailPage() {
     const response = await userStore.fetchSelectedUser(id);

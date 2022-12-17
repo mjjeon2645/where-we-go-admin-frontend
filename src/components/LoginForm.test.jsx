@@ -31,7 +31,7 @@ describe('LoginForm', () => {
       screen.getAllByPlaceholderText('아이디');
       screen.getAllByPlaceholderText('비밀번호');
       screen.getByText('로그인');
-      screen.getByText('어드민 계정 생성하기');
+      // screen.getByText('어드민 계정 생성하기');
     });
   });
 
@@ -59,17 +59,17 @@ describe('LoginForm', () => {
     });
   });
 
-  context('어드민 계정 생성 클릭', () => {
-    beforeEach(() => {
-      errorMessage = '';
-    });
+  // context('어드민 계정 생성 클릭', () => {
+  //   beforeEach(() => {
+  //     errorMessage = '';
+  //   });
 
-    it('계정 생성 페이지로 이동', async () => {
-      renderLoginForm();
+  //   it('계정 생성 페이지로 이동', async () => {
+  //     renderLoginForm();
 
-      fireEvent.click(screen.getByText('어드민 계정 생성하기'));
+  //     fireEvent.click(screen.getByText('어드민 계정 생성하기'));
 
-      expect(goSignUp).toBeCalled();
-    });
-  });
+  //     expect(goSignUp).toBeCalled();
+  //   });
+  // });
 });

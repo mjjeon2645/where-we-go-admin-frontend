@@ -1,4 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import {
+  fireEvent, render, screen, waitFor,
+} from '@testing-library/react';
 import UserReviewsPage from './UserReviewsPage';
 
 const context = describe;
@@ -10,7 +12,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 let allUserReviews;
-const fetchAllUserReviews = jest.fn();
+let fetchAllUserReviews;
 
 jest.mock('../hooks/useUserReviewStore', () => () => ({
   allUserReviews,
@@ -24,6 +26,7 @@ describe('UserReviewsPage', () => {
 
   context('a manager clicks user reviews menu', () => {
     beforeEach(() => {
+      fetchAllUserReviews = jest.fn();
       allUserReviews = [
         {
           id: 100,
@@ -50,6 +53,7 @@ describe('UserReviewsPage', () => {
 
     it('renders User Reviews Page', () => {
       renderUserReviewsPage();
+
       screen.getByText('리뷰 관리 > 전체');
 
       expect(fetchAllUserReviews).toBeCalled();
@@ -65,6 +69,20 @@ describe('UserReviewsPage', () => {
       fireEvent.click(screen.getByText('승준이네'));
 
       expect(navigate).toBeCalledWith('/places/305');
+    });
+  });
+
+  context('there is no authentication', () => {
+    beforeEach(() => {
+      fetchAllUserReviews = jest.fn(() => 'authentication error');
+    });
+
+    it('calls navigate function', async () => {
+      renderUserReviewsPage();
+
+      await waitFor(() => {
+        expect(navigate).toBeCalledWith('/auth-error');
+      });
     });
   });
 });
